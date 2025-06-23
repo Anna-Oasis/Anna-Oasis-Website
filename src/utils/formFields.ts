@@ -14,11 +14,14 @@ export const admissionFields = [
     name: "country",
     label: "Country",
     placeholder: "India",
+    isCountrySelect:true,
   },
   {
     name: "nationality",
     label: "Nationality",
     placeholder: "Indian",
+    isCountrySelect:true,
+
   },
   {
     name: "interestedCourse",

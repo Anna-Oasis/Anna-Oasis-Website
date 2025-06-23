@@ -14,6 +14,7 @@ export const handlePreAdmissionForm = async (
   resetForm: () => void
 ): Promise<AlertMessage> => {
   try {
+    console.log(data);
     const res = await axios.post(`${api}/api/preadmission`, data);
     const alertMsg: AlertMessage = {
       title: res.data.success ? "Submitted" : "OOPS",
