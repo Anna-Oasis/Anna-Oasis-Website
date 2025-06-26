@@ -2,7 +2,7 @@ import { useFormikContext } from "formik";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import countryData from "country-telephone-data"; // Install with: npm install country-telephone-data
+import countryData from "country-telephone-data";
 import {
   Select,
   SelectTrigger,
