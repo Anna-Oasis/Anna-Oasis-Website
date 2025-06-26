@@ -1,18 +1,25 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import TextField from "./formComponents/TextField";
-import CheckBoxField from "./formComponents/CheckboxField";
+import TextField from "@/components/formComponents/TextField";
+import CheckBoxField from "@/components/formComponents/CheckboxField";
+import DateAndTimePicker from "@/components/formComponents/DatePicker";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   interests: Yup.array().min(1, "Select at least one interest"),
+  appointment: Yup.string().required("Select a date and time"),
 });
 
 function TestForm() {
   return (
     <Formik
-      initialValues={{ name: "", email: "", interests: [] }}
+      initialValues={{
+        name: "",
+        email: "",
+        interests: [],
+        appointment: "",
+      }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
         alert(JSON.stringify(values, null, 2));
@@ -30,6 +37,13 @@ function TestForm() {
               { label: "Music", value: "music" },
               { label: "Reading", value: "reading" },
             ]}
+          />
+          <DateAndTimePicker
+            label="Appointment"
+            value="appointment"
+            showDate={true}
+            showTime={true}
+            placeholder="Select date and time"
           />
           <button type="submit" className="mt-4 px-4 py-2 bg-blue-600 text-white rounded">
             Submit
