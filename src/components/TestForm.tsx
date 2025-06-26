@@ -9,6 +9,7 @@ import MultiLineText from "@/components/formComponents/MultiLineText";
 import PasswordField from "@/components/formComponents/PasswordField";
 import PhoneInputField from "@/components/formComponents/PhoneInputField";
 import RadioField from "@/components/formComponents/RadioField";
+import SelectField from "@/components/formComponents/SelectField";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -21,6 +22,7 @@ const validationSchema = Yup.object({
   password: Yup.string().required("Password is required"),
   phone: Yup.string().required("Phone number is required"),
   gender: Yup.string().required("Gender is required"),
+  select: Yup.string().required("Please select an option"),
 });
 
 function TestForm() {
@@ -37,6 +39,7 @@ function TestForm() {
         password: "",
         phone: "",
         gender: "",
+        select: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
@@ -91,6 +94,15 @@ function TestForm() {
               { label: "Male", value: "male" },
               { label: "Female", value: "female" },
               { label: "Other", value: "other" },
+            ]}
+          />
+          <SelectField
+            label="Select Option"
+            value="select"
+            options={[
+              { label: "Option 1", value: "option1" },
+              { label: "Option 2", value: "option2" },
+              { label: "Option 3", value: "option3" },
             ]}
           />
           <button type="submit" className="mt-4 px-4 py-2 bg-blue-600 text-white rounded">
