@@ -7,6 +7,7 @@ import TimePickerField from "@/components/formComponents/TimePicker";
 import ImagePickerField from "@/components/formComponents/ImagePickerField";
 import MultiLineText from "@/components/formComponents/MultiLineText";
 import PasswordField from "@/components/formComponents/PasswordField";
+import PhoneInputField from "@/components/formComponents/PhoneInputField";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -17,6 +18,7 @@ const validationSchema = Yup.object({
   image: Yup.string().required("Please upload an image"),
   message: Yup.string().required("Message is required"),
   password: Yup.string().required("Password is required"),
+  phone: Yup.string().required("Phone number is required"),
 });
 
 function TestForm() {
@@ -31,6 +33,7 @@ function TestForm() {
         image: "",
         message: "",
         password: "",
+        phone: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
@@ -77,6 +80,7 @@ function TestForm() {
             placeholder="Enter your password"
             value="password"
           />
+          <PhoneInputField label="Phone" placeholder="Enter your phone number" value="phone" />
           <button type="submit" className="mt-4 px-4 py-2 bg-blue-600 text-white rounded">
             Submit
           </button>
