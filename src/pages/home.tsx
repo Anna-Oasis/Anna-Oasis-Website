@@ -1,3 +1,4 @@
+import TestForm from '@/components/TestForm';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
 
@@ -15,6 +16,7 @@ const Home = () => {
                         Fill admissionForm
                     </Link>
                 </Button>
+                <TestForm />
             </div>
         </div>
     );
