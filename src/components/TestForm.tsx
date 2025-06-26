@@ -4,6 +4,7 @@ import TextField from "@/components/formComponents/TextField";
 import CheckBoxField from "@/components/formComponents/CheckboxField";
 import DateAndTimePicker from "@/components/formComponents/DatePicker";
 import TimePickerField from "@/components/formComponents/TimePicker";
+import ImagePickerField from "@/components/formComponents/ImagePickerField";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -11,6 +12,7 @@ const validationSchema = Yup.object({
   interests: Yup.array().min(1, "Select at least one interest"),
   appointment: Yup.string().required("Select a date and time"),
   time: Yup.string().required("Select a time"),
+  image: Yup.string().required("Please upload an image"),
 });
 
 function TestForm() {
@@ -22,6 +24,7 @@ function TestForm() {
         interests: [],
         appointment: "",
         time: "",
+        image: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
@@ -52,6 +55,11 @@ function TestForm() {
             label="Time"
             value="time"
             placeholder="Select time"
+          />
+          <ImagePickerField
+            label="Profile Picture"
+            value="image"
+            placeholder="No image selected"
           />
           <button type="submit" className="mt-4 px-4 py-2 bg-blue-600 text-white rounded">
             Submit
