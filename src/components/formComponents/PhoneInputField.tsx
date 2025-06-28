@@ -51,7 +51,15 @@ function PhoneInputField({ label, value, placeholder }: PhoneInputFieldProps) {
 
   const handleCountryChange = (selected: string) => {
     setCountryCode(selected);
+    console.log("Selected country code:", selected);
+    // Update phone number with new country code
+    if (phoneNumber.startsWith("+")) {
+      phoneNumber = phoneNumber.replace(/^\+\d{1,4}\s?/, "");
+    }
+    console.log("Updated phone number:", phoneNumber);
+    // Set the new value with selected country code and existing phone number
     setFieldValue(value, `${selected} ${phoneNumber}`);
+    console.log("Updated Formik value:", values[value]);
   };
 
   return (

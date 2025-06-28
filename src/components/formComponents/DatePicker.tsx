@@ -24,7 +24,7 @@ interface DateAndTimePickerProps {
 const DateAndTimePicker = ({
   label,
   value,
-  placeholder = "Select date/time",
+  placeholder = "Select date",
   minimumDate,
   maximumDate,
   showDate = true,
