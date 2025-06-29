@@ -6,7 +6,11 @@ import  Text  from "../ui/text";
 
 const LocalGuardian = () => (
   <>
-    <Text className="text-lg font-semibold mb-4">Local Guardian Details</Text>
+  <div className="p-4 max-w-3xl mx-auto bg-white rounded-xl shadow-md transition-all duration-300">
+    <Text bold size="xl" className="mb-4 text-center text-blue-700">
+      Local Guardian's Details
+    </Text>
+  </div>
     <TextField label="Guardian Name" value="localGuardianName" placeholder="Name" />
     <TextField
       label="Relationship"

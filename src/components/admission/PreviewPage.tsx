@@ -41,15 +41,14 @@ const PreviewPage = ({
     ([_, v]) => v !== undefined && v !== ""
   );
 
-  return (
-    <Text  className="p-4 space-y-8">
-      <Text className="bg-white rounded-xl shadow-sm mb-4 p-4">
-        <Text bold size="lg" className="mb-4 text-center">
+ return (
+    <Text className="p-4 space-y-8">
+        <Text bold className=" p-4 mb-4 text-center text-blue-700">
           Admission Form Preview
         </Text>
-        <Table>
+        <Table className="rounded-lg overflow-hidden">
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-blue-50">
               <TableHead className="py-2 font-bold text-base">Field</TableHead>
               <TableHead className="py-2 font-bold text-base">Value</TableHead>
             </TableRow>
@@ -88,15 +87,14 @@ const PreviewPage = ({
             ))}
           </TableBody>
         </Table>
-      </Text>
 
-      <Text className="bg-white rounded-xl shadow-sm mb-4 p-4">
-        <Text bold size="lg" className="mb-4 text-center">
+      <Text className="bg-white rounded-xl shadow-md mb-4 p-8">
+        <Text bold  className="mb-6 py-10 text-center text-blue-700">
           Personal Details
         </Text>
-        <Table>
+        <Table className="rounded-lg overflow-hidden">
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-blue-50">
               <TableHead className="py-2 font-bold text-base">Field</TableHead>
               <TableHead className="py-2 font-bold text-base">Value</TableHead>
             </TableRow>
@@ -139,10 +137,10 @@ const PreviewPage = ({
       </Text>
 
       <Text className="flex justify-between mt-6">
-        <Button variant="outline" onClick={onEdit}>
+        <Button variant="outline" onClick={onEdit} className="transition-all duration-200">
           Back to form
         </Button>
-        <Button onClick={onSubmit}>Submit</Button>
+        <Button onClick={onSubmit} className="transition-all duration-200">Submit</Button>
       </Text>
     </Text>
   );

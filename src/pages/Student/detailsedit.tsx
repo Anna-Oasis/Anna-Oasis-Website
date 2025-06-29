@@ -10,7 +10,7 @@ import FileUploads from "@/components/details/FileUploads";
 import useLoadingStore from "@/stores/loadingStore";
 import useUserStore from "@/stores/userStore";
 import api from "@/api";
-// import { submitStudentDetails, updateStudentDetails, getStudentDetails } from "@/utils/student/studentDetailsApi";
+import { submitStudentDetails, updateStudentDetails, getStudentDetails } from "@/utils/student/studentDetailsApi";
 import { Button } from "@/components/ui/button";
 
 export default function DetailsEditPage() {
@@ -55,7 +55,7 @@ export default function DetailsEditPage() {
         } else {
           setLoading(true);
           const formData = new FormData();
-          formData.append("user_id", "");
+          formData.append("user_id", details?.userId || "");
           formData.append("name", values.name);
           formData.append("rollNo", values.rollNo);
           formData.append("course", values.course);
@@ -126,20 +126,20 @@ export default function DetailsEditPage() {
             }
           }
 
-          // if (!details) {
-          //   await submitStudentDetails(formData);
-          // } else {
-          //   await updateStudentDetails(details.rollNo, formData);
-          // }
+          if (!details) {
+            await submitStudentDetails(formData, navigate);
+          } else {
+            await updateStudentDetails(details.rollNo, formData, navigate);
+          }
 
-          // try {
-          //   const fresh = await getStudentDetails();
-          //   if (fresh && fresh.success) {
-          //     setDetails(fresh.data);
-          //   }
-          // } catch (e) {
-          //   console.error("Failed to fetch updated details:", e);
-          // }
+          try {
+            const fresh = await getStudentDetails();
+            if (fresh && fresh.success) {
+              setDetails(fresh.data);
+            }
+          } catch (e) {
+            console.error("Failed to fetch updated details:", e);
+          }
 
           // For now, just log all values and FormData keys for debugging
           console.log("Submitted values:", values);
@@ -152,30 +152,29 @@ export default function DetailsEditPage() {
           console.log("Details updated in user store:", useUserStore.getState().details);
 
           setLoading(false);
-          navigate("/admission", { replace: true });
+          navigate("/User/Student/admission", { replace: true });
         }
       }}
     >
       {({ handleSubmit, validateForm }) => (
         <div
           ref={scrollViewRef}
-          style={{
-            padding: 20,
-            gap: 12,
-            display: "flex",
-            flexDirection: "column",
-            minHeight: "80vh",
-          }}
+          className="max-w-3/5 mx-auto bg-white rounded-xl shadow-md p-8 mt-8 flex flex-col min-h-[80vh] transition-all duration-300"
         >
+          <div className="mb-6">
+            <div className="text-2xl font-bold text-blue-700 mb-2">Edit Student Details</div>
+            <div className="text-gray-500 text-sm">Please fill in all required fields and navigate through the steps.</div>
+          </div>
           {renderPage()}
-          <div className="flex justify-between mt-6">
+          <div className="flex justify-between mt-8">
             {page > 0 && (
-              <Button type="button" variant="outline" onClick={prev}>
+              <Button type="button" variant="outline" onClick={prev} className="transition-all duration-200">
                 Back
               </Button>
             )}
             <Button
               type="button"
+              className="transition-all duration-200"
               onClick={async () => {
                 const formErrors = await validateForm();
                 if (Object.keys(formErrors).length > 0) {

@@ -4,6 +4,7 @@ import TextField from "@/components/formComponents/TextField";
 import Text from "@/components/ui/text";
 import { admissionCategories, messPreferences, previousResidentOptions } from "@/constants/admission";
 
+
 const HOSTEL_FEES = [
   { label: "Admission Fee", amount: "₹2,000" },
   { label: "Hostel Rent (per semester)", amount: "₹15,000" },
@@ -18,10 +19,12 @@ const AdmissionDetails = () => {
   const { values } = useFormikContext<any>();
 
   return (
-    <div>
-      <SelectField label="Mess Preference" value="messPreference" options={messPreferences} />
-      <SelectField label="Previous Resident" value="previousResident" options={previousResidentOptions} />
-      <SelectField label="Admission Category" value="admissionCategory" options={admissionCategories} />
+     <div className="p-8 max-w-7xl mx-auto bg-white rounded-xl shadow-md transition-all duration-300">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <SelectField label="Mess Preference" value="messPreference" options={messPreferences} />
+        <SelectField label="Previous Resident" value="previousResident" options={previousResidentOptions} />
+        <SelectField label="Admission Category" value="admissionCategory" options={admissionCategories} />
+      </div>
 
       <div style={{ marginTop: 24 }}>
         <Text size="xl" bold className="mb-2 block">Hostel Fee Payment</Text>

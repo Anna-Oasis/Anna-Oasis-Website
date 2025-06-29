@@ -1,0 +1,122 @@
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarHeader,
+  SidebarGroup,
+  SidebarGroupLabel,
+} from "@/components/ui/sidebar";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getToken, verifyToken } from "@/utils/auth/authUtil";
+
+const studentLinks = [
+  { label: "Admission", path: "/User/Student/admission" },
+  { label: "Details", path: "/User/Student/details" },
+];
+const managerLinks = [
+  { label: "Payment Verification", path: "/Manager/PaymentVerfication" },
+];
+const rcLinks = [
+  { label: "Room Allocation", path: "/RC/RoomAllocation" },
+];
+const deputyWardenLinks = [
+  { label: "Admission Verification", path: "/DeputyWarden/Verification/AdmissionVerification" },
+];
+
+function getLinksByRole(role: string) {
+  switch (role) {
+    case "student":
+      return studentLinks;
+    case "manager":
+      return managerLinks;
+    case "rc":
+      return rcLinks;
+    case "DeputyWarden":
+      return deputyWardenLinks;
+    default:
+      return [];
+  }
+}
+
+export default function RoleBasedSidebar() {
+  const navigate = useNavigate();
+  const [role, setRole] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    async function fetchRole() {
+      const token = await getToken();
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+      const user = await verifyToken(token);
+      setRole(user?.role || "student");
+      setUser(user);
+    }
+    fetchRole();
+  }, [navigate]);
+
+  if (!role) {
+    return (
+      <Sidebar>
+        <SidebarHeader>
+          <div className="flex items-center gap-2 p-4">
+            <div className="animate-pulse bg-gray-300 rounded-full w-10 h-10" />
+            <div className="flex flex-col gap-1">
+              <div className="h-4 w-24 bg-gray-200 rounded" />
+              <div className="h-3 w-16 bg-gray-100 rounded" />
+            </div>
+          </div>
+        </SidebarHeader>
+      </Sidebar>
+    );
+  }
+
+  const links = getLinksByRole(role);
+
+  return (
+    <Sidebar>
+      <SidebarHeader>
+        <div className="flex items-center gap-3 p-4">
+          <img
+            src="/vite.svg"
+            alt="Logo"
+            className="w-10 h-10 rounded-full shadow"
+          />
+          <div>
+            <div className="font-bold text-lg tracking-wide">Anna Oasis</div>
+            {user && (
+              <div className="text-xs text-gray-500">{user.email}</div>
+            )}
+          </div>
+        </div>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel className="uppercase tracking-wider text-xs text-gray-400 mb-2">
+            Main
+          </SidebarGroupLabel>
+          <SidebarMenu>
+            {links.map((link) => (
+              <SidebarMenuItem key={link.path}>
+                <SidebarMenuButton
+                  className="transition-all duration-200 rounded-lg px-4 py-2 font-medium hover:bg-blue-100 hover:text-blue-700 focus:bg-blue-200"
+                  onClick={() => navigate(link.path)}
+                >
+                  {link.label}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+      <div className="mt-auto p-4 text-xs text-gray-400">
+        &copy; {new Date().getFullYear()} Anna Oasis
+      </div>
+    </Sidebar>
+  );
+}
