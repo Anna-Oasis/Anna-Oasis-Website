@@ -1,24 +1,24 @@
-import { BrowserRouter, Route, Routes } from "react-router"
-import Addmission from "./pages/addmission"
-import DetailsEditPage from "./pages/detailsedit"
-import Detailspage from "./pages/details"
-import Admission from "./pages/admission"
-import Home from "./pages/home"
+import { BrowserRouter, Route, Routes } from "react-router";
+import Addmission from "./pages/addmission";
+import Home from "./pages/home";
+import RoomAllocationPage from "./pages/RC/RoomAllocation/allocation";
+import ApprovePage from "./pages/RC/RoomAllocation/approve/approve";
+import ManagerPaymentVerificationsPage from "./pages/Manager/paymentVerification";
+import DeputyWardenAdmissionsVerificationPage from "./pages/DeputyWarden/Verifications/AdmissionVerfication";
+import Login from "./pages/auth/Login"
+import ProtectedRoute from "./components/ProtectedRoute";
+import SIgnup from "./pages/auth/SIgnup";
+import EmptyPage from "./components/EmptyPage";
 
 function App() {
-
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/admissionForm" element={<Addmission/>} />
-        <Route path="/admission" element={<Admission />} />
-        <Route path="/detailsedit" element={<DetailsEditPage />} />
-        <Route path="/details" element={<Detailspage />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
