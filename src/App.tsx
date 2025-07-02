@@ -13,9 +13,11 @@ import AdmissionForm from "./pages/Student/admission";
 import DetailsPage from "./pages/Student/details";
 import DetailsEditPage from "./pages/Student/detailsedit";
 import MainLayout from "./components/MainLayout";
+import { Toaster } from "sonner";
 
 function App() {
   return (
+    <>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<ProtectedRoute element={<MainLayout><Home /></MainLayout>} />} />
@@ -82,6 +84,8 @@ function App() {
         <Route path="*" element= {<EmptyPage title="404" description="page not found" />} />
       </Routes>
     </BrowserRouter>
+    <Toaster richColors position="top-center"/>
+    </>
   );
 }
 

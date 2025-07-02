@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-const phoneRegex = /^\+[1-9]\d{0,3}\s?\d{5,15}$/;
+const phoneRegex = /^\+[1-9]\d{0,3}\d{5,15}$/;
 const pinRegex = /^[0-9\s\-]{3,10}$/;
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 const allowedBloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
@@ -23,6 +23,12 @@ const validationSchemas = [
       .oneOf(allowedBloodGroups, "Invalid blood group")
       .required("Required"),
     medicalHistory: Yup.string(),
+    admissionCategory: Yup.string().required("Required"),
+    admissionCategoryReason: Yup.string().when("admissionCategory", {
+      is: (val: string) => val === "Other",
+      then: (schema) => schema.required("Required"),
+      otherwise: (schema) => schema.notRequired(),
+    })
   }),
   // Parent Details (Father, Mother, Residential India, Residential Foreign)
   Yup.object({

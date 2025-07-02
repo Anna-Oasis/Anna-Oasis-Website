@@ -46,7 +46,7 @@ function PhoneInputField({ label, value, placeholder }: PhoneInputFieldProps) {
   }
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFieldValue(value, `${countryCode} ${e.target.value}`);
+    setFieldValue(value, `${countryCode}${e.target.value}`);
   };
 
   const handleCountryChange = (selected: string) => {
@@ -58,7 +58,7 @@ function PhoneInputField({ label, value, placeholder }: PhoneInputFieldProps) {
     }
     console.log("Updated phone number:", phoneNumber);
     // Set the new value with selected country code and existing phone number
-    setFieldValue(value, `${selected} ${phoneNumber}`);
+    setFieldValue(value, `${selected}${phoneNumber}`);
     console.log("Updated Formik value:", values[value]);
   };
 

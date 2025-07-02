@@ -8,13 +8,33 @@ import {
   semesters,
   bloodGroups,
   courses,
+  admissionCategories,
 } from "@/constants/details";
 import nationalities from "@/constants/nationalities";
 import HelperText from "@/components/HelperText";
 import useUserStore from "@/stores/userStore";
-
+import { useFormikContext } from "formik";
+interface StudentFormValues {
+  name: string;
+  rollNo?: string;
+  course: string;
+  branch: string;
+  semester: string;
+  mobile: string;
+  email: string;
+  emergencyContact: string;
+  dateOfBirth: string;
+  age: string;
+  gender: string;
+  nationality: string;
+  admissionCategory: string;
+  admissionCategoryReason?: string;
+  bloodGroup: string;
+  medicalHistory?: string;
+}
 const StudentDetails = () => {
   const details = useUserStore((state) => state.details);
+  const { values } = useFormikContext<StudentFormValues>();
 
   return (
     <div className="bg-white rounded-xl shadow-md p-10 max-w-3xl mx-auto mt-8 transition-all duration-300">
@@ -26,12 +46,20 @@ const StudentDetails = () => {
       </HelperText>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         <TextField label="Name" value="name" placeholder="Enter name" />
-        {!details && (
+        {Array.isArray(details) && details.length === 0 ? (
           <TextField label="Roll No" value="rollNo" placeholder="Roll number" />
-        )}
+        ) : null}
         <SelectField label="Course" value="course" options={courses} />
         <SelectField label="Branch" value="branch" options={Departments} />
         <SelectField label="Semester" value="semester" options={semesters} />
+        <SelectField label="Admission Category" value="admissionCategory" options={admissionCategories} />
+        {values?.admissionCategory === "Other" && (
+          <TextField
+            label="Reason to join the hostel"
+            value="admissionCategoryReason"
+            placeholder="Please specify your reason"
+          />
+        )}
         <PhoneInputField label="Mobile" value="mobile" placeholder="Phone number" />
         <TextField label="Email" value="email" placeholder="Email" />
         <PhoneInputField label="Emergency Contact Number" value="emergencyContact" placeholder="Emergency contact" />

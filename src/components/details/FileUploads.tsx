@@ -12,8 +12,8 @@ const FileUploads = () => {
   const details = useUserStore((state) => state.details);
 
   useEffect(() => {
-    if (details) {
-      const isForeign = details.govtIdType === "Passport" ? "Yes" : "No";
+    if (Array.isArray(details) && details.length > 0 ) {
+      const isForeign = details[0].govtIdType === "Passport" ? "Yes" : "No";
       setFieldValue("isForeignNational", isForeign);
     } else {
       if (values.isForeignNational === undefined) {
@@ -24,7 +24,7 @@ const FileUploads = () => {
 
   return (
     <>
-      {!details && (
+      {Array.isArray(details) && details.length === 0 && (
         <RadioField
           label="Are you a Foreign National?"
           value="isForeignNational"

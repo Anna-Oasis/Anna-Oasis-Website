@@ -145,6 +145,8 @@ const initialValues = {
   rollNo: "",
   course: "",
   branch: "",
+  admissionCategory: "",
+  admissionCategoryReason: "",
   semester: "",
   mobile: "",
   email: "",
@@ -214,6 +216,17 @@ const leaveTypes = [
   { label: "Other", value: "other" },
 ];
 
+const admissionCategories = [
+  { label: "NRI", value: "NRI" },
+  { label: "CIWGC", value: "CIWGC" },
+  { label: "FN", value: "FN" },
+  { label: "LDC", value: "LDC" },
+  { label: "SIDS", value: "SIDS" },
+  { label: "ICCR", value: "ICCR" },
+  { label: "SII", value: "SII" },
+  { label: "Other", value: "Other" },
+];
+
 export {
   Departments,
   campusList,
@@ -223,4 +236,5 @@ export {
   initialValues,
   courses,
   govtIdTypes,
+  admissionCategories
 };

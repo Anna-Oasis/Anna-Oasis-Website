@@ -15,7 +15,6 @@ const grievanceCategories = [
 ];
 
 const initialValues = {
-  admissionCategory: undefined,
   previousResident: undefined,
   messPreference: undefined,
   studentAgreed: "",
@@ -24,7 +23,8 @@ const initialValues = {
   transactionId: "",
   academicYear: "",
   hostelBlock: undefined,
-  declaration: [] as string[]
+  declaration: [] as string[],
+  transactionPhotoUrl: "",
 };
 
 const hostelBlocks = [

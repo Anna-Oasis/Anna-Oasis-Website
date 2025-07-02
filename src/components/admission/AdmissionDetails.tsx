@@ -2,6 +2,7 @@ import { useFormikContext } from "formik";
 import SelectField from "@/components/formComponents/SelectField";
 import TextField from "@/components/formComponents/TextField";
 import Text from "@/components/ui/text";
+import ImagePickerField from "@/components/formComponents/ImagePickerField";
 import { admissionCategories, messPreferences, previousResidentOptions } from "@/constants/admission";
 
 
@@ -23,7 +24,6 @@ const AdmissionDetails = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <SelectField label="Mess Preference" value="messPreference" options={messPreferences} />
         <SelectField label="Previous Resident" value="previousResident" options={previousResidentOptions} />
-        <SelectField label="Admission Category" value="admissionCategory" options={admissionCategories} />
       </div>
 
       <div style={{ marginTop: 24 }}>
@@ -54,6 +54,7 @@ const AdmissionDetails = () => {
           value="transactionId"
           placeholder="Enter your Transaction ID"
         />
+        <ImagePickerField label="Payment Screenshot" value="transactionPhotoUrl" />
       </div>
     </div>
   );

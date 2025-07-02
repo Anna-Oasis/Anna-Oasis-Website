@@ -1,4 +1,4 @@
-import  { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import AdmissionDetails from "@/components/admission/AdmissionDetails";
@@ -7,10 +7,12 @@ import PreviewPage from "@/components/admission/PreviewPage";
 import { initialValues } from "@/constants/admission";
 import validationSchemas from "@/constants/admissionValidation";
 import useUserStore from "@/stores/userStore";
-import { submitStudentAdmission } from "@/utils/student/studentAdmissionApi";
+import { getAdmissionSession, submitStudentAdmission } from "@/utils/student/studentAdmissionApi";
 import { getStudentDetails } from "@/utils/student/studentDetailsApi";
 import useLoadingStore from "@/stores/loadingStore";
 import { Button } from "@/components/ui/button";
+import { Ban } from "lucide-react";
+import { toast} from "sonner";
 
 const AdmissionForm = () => {
   const [page, setPage] = useState(0);
@@ -22,18 +24,40 @@ const AdmissionForm = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
+  const [sessionOpen, setSessionOpen] = useState<boolean | null>(null);
+
   useEffect(() => {
     async function fetchDetails() {
       try {
         const response = await getStudentDetails();
-  
-        if (response && response.data) {
+        if (response && response.count > 0) {
           setDetails(response.data);
+          if (response.data.approve) {
+            const semesterNumber = response.data.semester
+              ? parseInt(response.data.semester.replace(/\D/g, ""), 10)
+              : undefined;
+            if (semesterNumber !== undefined) {
+              const admissionsession = await getAdmissionSession(semesterNumber);
+              if (admissionsession.isOpen) {
+                setSessionOpen(true);
+              } else {
+                setSessionOpen(false);
+                toast.error("Admission session is closed for this semester.");
+              }
+            } else {
+              toast.error("Semester information is missing or invalid.");
+              setSessionOpen(false);
+            }
+          } else {
+            toast.error("You are not approved for admission yet. Please contact the administration.");
+            setSessionOpen(false);
+          }
         } else {
           navigate("/User/Student/details/edit", { replace: true });
         }
       } catch (e) {
         navigate("/User/Student/details/edit", { replace: true });
+        console.error("Error fetching student details:", e);
       }
     }
     fetchDetails();
@@ -61,6 +85,17 @@ const AdmissionForm = () => {
     }
   };
 
+  // Show empty page with icon and message if session is closed
+  if (sessionOpen === true) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <Ban className="w-20 h-20 text-red-400 mb-6" />
+        <div className="text-2xl font-bold text-red-500 mb-2">Admission Session Closed</div>
+        <div className="text-gray-500 text-lg">Admission session is closed for this semester. Please check back later.</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen max-w-full from-blue-50 to-white">
       <div className="flex justify-center mt-10 mb-6">
@@ -81,15 +116,19 @@ const AdmissionForm = () => {
               academicYear,
               studentAgreed: declaration.includes("studentAgreed"),
               parentAgreed: declaration.includes("parentAgreed"),
-              admissionCategory: values.admissionCategory || "",
               previousResident: values.previousResident === "Yes",
               hostelBlock: values.hostelBlock || "",
               messPreference: values.messPreference || "",
               transaction_id: values.transactionId,
+              transactionPhotoUrl: values.transactionPhotoUrl,
             };
             setLoading(true);
             await submitStudentAdmission(requestBody);
             setLoading(false);
+            toast.success("Admission details submitted successfully.");
+            setTimeout(() => {
+              navigate("/User/Student/details", { replace: true });
+            }, 1500);
           }
         }}
       >
