@@ -1,13 +1,13 @@
-import React, { useEffect, useState, type ReactElement } from "react";
-import { Navigate } from "react-router";
+// components/ProtectedLayout.tsx
+import React, { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router";
 import { getToken, verifyToken } from "@/utils/auth/authUtil";
 
-interface ProtectedRouteProps {
-  element: ReactElement;
+interface ProtectedLayoutProps {
   roles?: string[];
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, roles }) => {
+const ProtectedLayout: React.FC<ProtectedLayoutProps> = ({ roles }) => {
   const [authorized, setAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, roles }) => {
     return <Navigate to="/login" replace />;
   }
 
-  return element;
+  return <Outlet />;
 };
 
-export default ProtectedRoute;
+export default ProtectedLayout;
