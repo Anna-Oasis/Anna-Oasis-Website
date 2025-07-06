@@ -19,7 +19,7 @@ const LoginCard = () => {
               console.log("Login successful, redirecting based on role...", user.role);
               switch (user.role) {
                 case "student":
-                  navigate("/User/Student");
+                  navigate("/User/Student/admission");
                   break;
                 case "manager":
                   navigate("/Manager");
