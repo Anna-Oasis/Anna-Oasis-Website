@@ -11,6 +11,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getToken, verifyToken } from "@/utils/auth/authUtil";
+import LogoutModal from "@/components/LogoutModal";
+import { removeToken } from "@/utils/auth/authUtil";
+import useUserStore from "@/stores/userStore";
+
 
 const studentLinks = [
   { label: "Admission", path: "/User/Student/admission" },
@@ -45,6 +49,14 @@ export default function RoleBasedSidebar() {
   const navigate = useNavigate();
   const [role, setRole] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
+  const [logoutOpen, setLogoutOpen] = useState(false);
+  const setDetails = useUserStore((state) => state.setDetails);
+
+  const handleLogout = async () => {
+    await removeToken();
+    setDetails(null);
+    navigate("/login");
+  };
 
   useEffect(() => {
     async function fetchRole() {
@@ -89,9 +101,6 @@ export default function RoleBasedSidebar() {
           />
           <div>
             <div className="font-bold text-lg tracking-wide">Anna Oasis</div>
-            {user && (
-              <div className="text-xs text-gray-500">{user.email}</div>
-            )}
           </div>
         </div>
       </SidebarHeader>
@@ -113,10 +122,24 @@ export default function RoleBasedSidebar() {
             ))}
           </SidebarMenu>
         </SidebarGroup>
+          <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                className="transition-all duration-200 rounded-lg px-4 py-2 font-medium hover:bg-red-100 hover:text-red-700 focus:bg-red-200 flex items-center gap-2"
+                onClick={() => setLogoutOpen(true)}
+              >
+                Logout
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
-      <div className="mt-auto p-4 text-xs text-gray-400">
-        &copy; {new Date().getFullYear()} Anna Oasis
-      </div>
+      <LogoutModal
+        open={logoutOpen}
+        onClose={() => setLogoutOpen(false)}
+        onConfirm={handleLogout}
+      />
     </Sidebar>
   );
 }

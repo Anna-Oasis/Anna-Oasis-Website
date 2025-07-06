@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import Addmission from "./pages/addmission";
-import Home from "./pages/home";
 import RoomAllocationPage from "./pages/RC/RoomAllocation/allocation";
 import ApprovePage from "./pages/RC/RoomAllocation/approve/approve";
 import ManagerPaymentVerificationsPage from "./pages/Manager/paymentVerification";
@@ -13,6 +12,7 @@ import AdmissionForm from "./pages/Student/admission";
 import DetailsPage from "./pages/Student/details";
 import DetailsEditPage from "./pages/Student/detailsedit";
 import MainLayout from "./components/MainLayout";
+import Landing from "./pages/landing";
 import { Toaster } from "sonner";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<ProtectedRoute element={<MainLayout><Home /></MainLayout>} />} />
+        <Route path="/" element={<Landing />} />
         <Route
           path="/admissionForm"
           element={<ProtectedRoute element={<MainLayout><Addmission /></MainLayout>} roles={["student"]} />}

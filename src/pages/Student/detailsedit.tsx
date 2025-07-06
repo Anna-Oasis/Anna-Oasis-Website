@@ -78,7 +78,6 @@ export default function DetailsEditPage() {
           formData.append("email", values.email);
           formData.append("emergencyContact", values.emergencyContact);
           formData.append("dateOfBirth", values.dateOfBirth);
-          formData.append("age", values.age);
           formData.append("gender", values.gender);
           formData.append("nationality", values.nationality);
           formData.append("bloodGroup", values.bloodGroup);
@@ -153,7 +152,7 @@ export default function DetailsEditPage() {
             }
           }
 
-          if (Array.isArray(details) && details.length === 0) {
+          if (!details || details.length === 0) {
             console.log("Submitting new student details:", formData);
             await submitStudentDetails(formData, navigate);
           } else {

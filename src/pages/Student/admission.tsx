@@ -12,19 +12,20 @@ import { getStudentDetails } from "@/utils/student/studentDetailsApi";
 import useLoadingStore from "@/stores/loadingStore";
 import { Button } from "@/components/ui/button";
 import { Ban } from "lucide-react";
-import { toast} from "sonner";
+import { toast } from "sonner";
 
 const AdmissionForm = () => {
   const [page, setPage] = useState(0);
+  const [academic_year, setAcademicYear] = useState<any>(null);
   const details = useUserStore((state) => state.details);
   const setLoading = useLoadingStore((state) => state.setLoading);
   const setDetails = useUserStore((state) => state.setDetails);
-  const currentYear = new Date().getFullYear();
   const gender = details?.gender;
   const scrollRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const [sessionOpen, setSessionOpen] = useState<boolean | null>(null);
+  const [admissionapproved, setAdmissionApproved] = useState<boolean | null>(null);
 
   useEffect(() => {
     async function fetchDetails() {
@@ -34,12 +35,12 @@ const AdmissionForm = () => {
           setDetails(response.data);
           if (response.data.approve) {
             const semesterNumber = response.data.semester
-              ? parseInt(response.data.semester.replace(/\D/g, ""), 10)
-              : undefined;
             if (semesterNumber !== undefined) {
               const admissionsession = await getAdmissionSession(semesterNumber);
+              console.log("Admission session data:", admissionsession);
               if (admissionsession.isOpen) {
                 setSessionOpen(true);
+                setAcademicYear(admissionsession.data.academic_year);
               } else {
                 setSessionOpen(false);
                 toast.error("Admission session is closed for this semester.");
@@ -50,7 +51,7 @@ const AdmissionForm = () => {
             }
           } else {
             toast.error("You are not approved for admission yet. Please contact the administration.");
-            setSessionOpen(false);
+            setAdmissionApproved(false);
           }
         } else {
           navigate("/User/Student/details/edit", { replace: true });
@@ -85,10 +86,20 @@ const AdmissionForm = () => {
     }
   };
 
-  // Show empty page with icon and message if session is closed
-  if (sessionOpen === true) {
+  if(admissionapproved === false) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+      <div className="flex flex-col items-center justify-center min-h-[70vh]">
+        <Ban className="w-20 h-20 text-red-400 mb-6" />
+        <div className="text-2xl font-bold text-red-500 mb-2">Admission Not Approved</div>
+        <div className="text-gray-500 text-lg">You are not approved for admission yet. Please contact the administration.</div>
+      </div>
+    );
+  }
+
+  // Show empty page with icon and message if session is closed
+  if (sessionOpen === false) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[70vh]">
         <Ban className="w-20 h-20 text-red-400 mb-6" />
         <div className="text-2xl font-bold text-red-500 mb-2">Admission Session Closed</div>
         <div className="text-gray-500 text-lg">Admission session is closed for this semester. Please check back later.</div>
@@ -110,10 +121,10 @@ const AdmissionForm = () => {
           } else {
             const declaration = values.declaration || [];
             const details = useUserStore.getState().details;
-            const academicYear = `${currentYear}-${currentYear + 1}`;
+            console.log("admission year", academic_year);
             const requestBody = {
               roll_number: details?.rollNo || "",
-              academicYear,
+              academicYear: academic_year || "",
               studentAgreed: declaration.includes("studentAgreed"),
               parentAgreed: declaration.includes("parentAgreed"),
               previousResident: values.previousResident === "Yes",
@@ -138,9 +149,9 @@ const AdmissionForm = () => {
               setFieldValue("hostelBlock", "Flora");
             } else if (
               gender === "female" &&
-              values.hostelBlock !== "Lavendar"
+              values.hostelBlock !== "Lavender"
             ) {
-              setFieldValue("hostelBlock", "Lavendar");
+              setFieldValue("hostelBlock", "Lavender");
             }
           }, [gender, setFieldValue, values.hostelBlock]);
 
@@ -150,7 +161,7 @@ const AdmissionForm = () => {
             <div ref={scrollRef} className="max-w-3/5 mx-auto bg-white rounded-xl shadow-md p-8 mt-4 transition-all duration-300">
               {hostelBlock && (
                 <div className="mb-2 font-semibold text-blue-600">
-                  Admission for hostel block {hostelBlock} for the year {currentYear}
+                  Admission for hostel block {hostelBlock} for the year {academic_year}
                 </div>
               )}
               {renderPage(handleSubmit, values)}

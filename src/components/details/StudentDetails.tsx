@@ -24,7 +24,6 @@ interface StudentFormValues {
   email: string;
   emergencyContact: string;
   dateOfBirth: string;
-  age: string;
   gender: string;
   nationality: string;
   admissionCategory: string;
@@ -34,6 +33,7 @@ interface StudentFormValues {
 }
 const StudentDetails = () => {
   const details = useUserStore((state) => state.details);
+  console.log("StudentDetails component rendered with details:", details);
   const { values } = useFormikContext<StudentFormValues>();
 
   return (
@@ -46,7 +46,7 @@ const StudentDetails = () => {
       </HelperText>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         <TextField label="Name" value="name" placeholder="Enter name" />
-        {Array.isArray(details) && details.length === 0 ? (
+        {!details || details.length === 0 ? (
           <TextField label="Roll No" value="rollNo" placeholder="Roll number" />
         ) : null}
         <SelectField label="Course" value="course" options={courses} />
@@ -64,7 +64,6 @@ const StudentDetails = () => {
         <TextField label="Email" value="email" placeholder="Email" />
         <PhoneInputField label="Emergency Contact Number" value="emergencyContact" placeholder="Emergency contact" />
         <DateAndTimePicker label="Date of Birth" value="dateOfBirth" placeholder="YYYY-MM-DD" />
-        <TextField label="Age" value="age" placeholder="Age" />
         <RadioField
           label="Gender"
           value="gender"

@@ -10,6 +10,8 @@ import useUserStore from "@/stores/userStore";
 const FileUploads = () => {
   const { values, setFieldValue } = useFormikContext<any>();
   const details = useUserStore((state) => state.details);
+  console.log("FileUploads component rendered with details:", details);
+  console.log("FileUploads component values:", values);
 
   useEffect(() => {
     if (Array.isArray(details) && details.length > 0 ) {
@@ -21,10 +23,16 @@ const FileUploads = () => {
       }
     }
   }, [details, setFieldValue, values.isForeignNational, details?.govtIdType]);
+   // Automatically set govtIdType to "Passport" if foreign national is "Yes"
+  useEffect(() => {
+    if (values.isForeignNational === "Yes") {
+      setFieldValue("govtIdType", "Passport");
+    }
+  }, [values.isForeignNational, setFieldValue]);
 
   return (
     <>
-      {Array.isArray(details) && details.length === 0 && (
+      {(details === null || details.length === 0) && (
         <RadioField
           label="Are you a Foreign National?"
           value="isForeignNational"

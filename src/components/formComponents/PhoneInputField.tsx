@@ -1,92 +1,56 @@
 import { useFormikContext } from "formik";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import countryData from "country-telephone-data";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
+import PhoneInput from "react-phone-input-2";
+import { Label } from "../ui/label";
+import "react-phone-input-2/lib/style.css";
 
-/**
- * Props for the PhoneInputField component
- */
 interface PhoneInputFieldProps {
   label?: string;
   value: string;
   placeholder?: string;
 }
 
-/**
- * PhoneInputField component provides a phone input with country selector
- * that integrates with Formik. Uses a select for country code and input for number.
- */
+const phoneRegex = /^\+[1-9]\d{1,14}$/;
+
 function PhoneInputField({ label, value, placeholder }: PhoneInputFieldProps) {
   const { values, setFieldValue, touched, errors } = useFormikContext<any>();
-  const [countryCode, setCountryCode] = useState("+91");
 
-  // Prepare country code options from library
-  const countryOptions = countryData.allCountries.map((c) => ({
-    name: c.name,
-    dialCode: `+${c.dialCode}`,
-    iso2: c.iso2,
-  }));
-
-  // Split value into country code and number if possible
-  let phoneNumber = values[value] || "";
-  if (phoneNumber.startsWith("+")) {
-    const match = phoneNumber.match(/^(\+\d{1,4})\s?(.*)$/);
-    if (match) {
-      if (match[1] !== countryCode) setCountryCode(match[1]);
-      phoneNumber = match[2];
+  // Format to E.164 on every change
+  const handleChange = (phone: string, country: any, e: any, formattedValue: string) => {
+    let formatted = phone.replace(/[^\d+]/g, "");
+    if (!formatted.startsWith("+")) {
+      formatted = "+" + formatted.replace(/^(\d+)/, "$1");
     }
-  }
-
-  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFieldValue(value, `${countryCode}${e.target.value}`);
-  };
-
-  const handleCountryChange = (selected: string) => {
-    setCountryCode(selected);
-    console.log("Selected country code:", selected);
-    // Update phone number with new country code
-    if (phoneNumber.startsWith("+")) {
-      phoneNumber = phoneNumber.replace(/^\+\d{1,4}\s?/, "");
+    if (formatted === "" || phoneRegex.test(formatted)) {
+      setFieldValue(value, formatted);
+    } else {
+      setFieldValue(value, formatted);
     }
-    console.log("Updated phone number:", phoneNumber);
-    // Set the new value with selected country code and existing phone number
-    setFieldValue(value, `${selected}${phoneNumber}`);
-    console.log("Updated Formik value:", values[value]);
   };
 
   return (
-    <div className="mb-4">
-      {label && <Label className="block mb-1 font-medium">{label}</Label>}
-      <div className="flex gap-2">
-        <Select value={countryCode} onValueChange={handleCountryChange}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Country" />
-          </SelectTrigger>
-          <SelectContent>
-            {countryOptions.map((c) => (
-              <SelectItem key={c.iso2} value={c.dialCode}>
-                {c.name} {c.dialCode}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Input
-          type="tel"
-          name={value}
-          id={value}
-          placeholder={placeholder || "Phone number"}
-          value={phoneNumber}
-          onChange={handleNumberChange}
-          className={`w-full ${touched[value] && errors[value] ? "border-red-500" : ""}`}
-        />
+    <div className="mb-4 w-full">
+      {label && <Label htmlFor={value} className="block mb-1 font-medium">{label}</Label>}
+      <div className="flex flex-col sm:flex-row w-full gap-2">
+        <div className="w-full">
+          <PhoneInput
+            country={"in"}
+            value={values[value] || ""}
+            onChange={handleChange}
+            inputProps={{
+              name: value,
+              id: value,
+              required: true,
+              autoFocus: false,
+              placeholder: placeholder || "Phone number",
+              autoComplete: "tel",
+            }}
+            inputClass={`w-full !pl-12 !pr-3 !py-2 sm:!text-base !text-sm ${touched[value] && errors[value] ? "border-red-500" : ""}`}
+            containerClass="w-full"
+            buttonClass="!bg-white !border-r !border-gray-300 !h-full"
+            dropdownClass="!z-50"
+            enableSearch
+          />
+        </div>
       </div>
       {touched[value] && errors[value] && (
         <div className="text-red-500 mt-1 italic text-sm">
