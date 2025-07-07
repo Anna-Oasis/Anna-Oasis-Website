@@ -36,7 +36,7 @@ export default function Landing() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
+    const timer = setTimeout(() => setLoading(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -73,7 +73,7 @@ export default function Landing() {
           </p>
           <div className="flex gap-4">
             <a
-              href="/apk/anna-oasis-latest.apk"
+              href="/anna_oasis_apk.apk"
               download
               className="flex items-center gap-2 px-5 py-3 text-white rounded-lg shadow hover:scale-105 transition-transform"
               style={{ backgroundColor: "#022B60" }}
