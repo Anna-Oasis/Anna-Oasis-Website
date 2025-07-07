@@ -11,8 +11,8 @@ function MainContent({ children }: { children: React.ReactNode }) {
         marginLeft: state === "expanded" ? "6rem" : "0rem", // match SIDEBAR_WIDTH and SIDEBAR_WIDTH_ICON
       }}
     >
-    <div className="p-2 text-3xl">
-      <SidebarTrigger className="w-12 h-12" />
+    <div className="text-3xl">
+      <SidebarTrigger className="w-16 h-16" />
     </div>
       <main className="flex-1 ">{children}</main>
     </div>

@@ -1,5 +1,6 @@
 import type { User } from "@/store/userStore";
 import {axios_api as api} from "@/utils/api";
+import { toast } from "sonner";
 
 const TOKEN_KEY = "authToken";
 
@@ -67,11 +68,11 @@ export const handleLogin = async (
 
     const data = response.data;
     saveToken(data.data.token);
-    alert(`Login Successful \n Welcome, ${data.data.name}`);
+    toast(`Login Successful \n Welcome, ${data.data.name}`);
     console.log("Login API response:", data);
     onSuccess();
   } catch (error: any) {
-    alert(`Login Failed \n ${error.response?.data?.message || error.message}`);
+    toast(`Login Failed \n ${error.response?.data?.message || error.message}`);
   }
 };
 

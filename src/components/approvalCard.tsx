@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Dialog,
   DialogTrigger,
@@ -9,7 +9,6 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 export const badgeStatus = {
   Pending: 'pending',
@@ -96,7 +95,7 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
 
               <div className="mt-4 space-y-3">
                 {data &&
-                  Object.entries(data).map(([key, value], idx) => (
+                  Object.entries(data).map(([key, value]) => (
                     <div
                       key={key}
                       className="bg-gray-100 rounded-lg px-4 py-3"

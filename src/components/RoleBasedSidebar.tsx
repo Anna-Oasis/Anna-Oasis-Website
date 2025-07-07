@@ -95,7 +95,7 @@ export default function RoleBasedSidebar() {
       <SidebarHeader>
         <div className="flex items-center gap-3 p-4">
           <img
-            src="/vite.svg"
+            src="/images/logo.png"
             alt="Logo"
             className="w-10 h-10 rounded-full shadow"
           />

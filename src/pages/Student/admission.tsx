@@ -96,7 +96,6 @@ const AdmissionForm = () => {
     );
   }
 
-  // Show empty page with icon and message if session is closed
   if (sessionOpen === false) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[70vh]">
