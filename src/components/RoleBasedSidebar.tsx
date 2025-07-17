@@ -11,7 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getToken, verifyToken } from "@/utils/auth/authUtil";
-import LogoutModal from "@/components/LogoutModal";
+import LogoutModal from "@/components/LogOutModal";
 import { removeToken } from "@/utils/auth/authUtil";
 import useUserStore from "@/stores/userStore";
 
