@@ -12,6 +12,10 @@ import AdmissionForm from "./pages/Student/admission";
 import DetailsPage from "./pages/Student/details";
 import DetailsEditPage from "./pages/Student/detailsedit";
 import DeleteAccountPage from "@/pages/DeleteAccount";
+import GrievancesPage from "./pages/Student/Grievances";
+import SummerVacationPage from "./pages/Student/SummerVacation";
+import HostelVacationPage from "./pages/Student/HostelVacation";
+import LeaveFormPage from "./pages/Student/LeaveForm";
 import MainLayout from "./components/MainLayout";
 import Landing from "./pages/landing";
 import { Toaster } from "sonner";
@@ -77,6 +81,42 @@ function App() {
           element={
             <ProtectedRoute
               element={<MainLayout><DetailsEditPage /></MainLayout>}
+              roles={["student"]}
+            />
+          }
+        />
+        <Route
+          path="/User/Student/Grievances"
+          element={
+            <ProtectedRoute
+              element={<MainLayout><GrievancesPage /></MainLayout>}
+              roles={["student"]}
+            />
+          }
+        />
+        <Route
+          path="/User/Student/SummerVacation"
+          element={
+            <ProtectedRoute
+              element={<MainLayout><SummerVacationPage /></MainLayout>}
+              roles={["student"]}
+            />
+          }
+        />
+        <Route
+          path="/User/Student/HostelVacation"
+          element={
+            <ProtectedRoute
+              element={<MainLayout><HostelVacationPage /></MainLayout>}
+              roles={["student"]}
+            />
+          }
+        />
+        <Route
+          path="/User/Student/LeaveForm"
+          element={
+            <ProtectedRoute
+              element={<MainLayout><LeaveFormPage /></MainLayout>}
               roles={["student"]}
             />
           }
