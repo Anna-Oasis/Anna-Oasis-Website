@@ -43,70 +43,71 @@ export default function Landing() {
   if (loading) return <LoadingScreen />;
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white"
-      style={{
-        background: "linear-gradient(to bottom right, #f8fbff, #ffffff)",
-      }}
-    >
-      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 shadow-2xl rounded-2xl overflow-hidden bg-white animate-fade-in">
-        <div
-          className="flex flex-col justify-center items-center p-10"
-          style={{
-            background: "linear-gradient(to bottom right, #e8f2ff, #d1e7ff)",
-          }}
-        >
-          <img
-            src="/images/no_text_logo.png"
-            alt="Anna Oasis"
-            className="w-24 h-24 mb-6 drop-shadow-lg"
-          />
-          <h2
-            className="text-3xl font-bold mb-2 text-center"
-            style={{ color: "#022B60" }}
+    <div className="min-h-screen flex flex-col justify-between bg-gradient-to-br from-blue-50 to-white" style={{ background: "linear-gradient(to bottom right, #f8fbff, #ffffff)" }}>
+      <div className="flex-grow flex items-center justify-center">
+        <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 shadow-2xl rounded-2xl overflow-hidden bg-white animate-fade-in">
+          <div
+            className="flex flex-col justify-center items-center p-10"
+            style={{ background: "linear-gradient(to bottom right, #e8f2ff, #d1e7ff)" }}
           >
-            Get the Anna Oasis App
-          </h2>
-          <p className="text-gray-600 mb-6 text-center">
-            Download our Android app for a seamless hostel experience. Manage
-            admissions, view status, and more right from your phone!
-          </p>
-          <div className="flex gap-4">
-            <a
-              href="/anna_oasis_apk.apk"
-              download
-              className="flex items-center gap-2 px-5 py-3 text-white rounded-lg shadow hover:scale-105 transition-transform"
+            <img
+              src="/images/no_text_logo.png"
+              alt="Anna Oasis"
+              className="w-24 h-24 mb-6 drop-shadow-lg"
+            />
+            <h2
+              className="text-3xl font-bold mb-2 text-center"
+              style={{ color: "#022B60" }}
+            >
+              Get the Anna Oasis App
+            </h2>
+            <p className="text-gray-600 mb-6 text-center">
+              Download our Android app for a seamless hostel experience. Manage
+              admissions, view status, and more right from your phone!
+            </p>
+            <div className="flex gap-4">
+              <a
+                href="/anna_oasis_apk.apk"
+                download
+                className="flex items-center gap-2 px-5 py-3 text-white rounded-lg shadow hover:scale-105 transition-transform"
+                style={{ backgroundColor: "#022B60" }}
+              >
+                <FaGooglePlay className="text-xl" />
+                <span className="font-semibold">Download APK</span>
+              </a>
+            </div>
+            <div className="mt-8 text-xs text-gray-400 text-center">
+              Works on Android devices. iOS coming soon!
+            </div>
+          </div>
+          {/* Right: Login */}
+          <div className="flex flex-col justify-center items-center p-10 bg-white">
+            <h2
+              className="text-4xl font-extrabold mb-4 animate-fade-in-down"
+              style={{ color: "#022B60" }}
+            >
+              Welcome to Anna Oasis
+            </h2>
+            <p className="text-gray-600 mb-8 text-center">
+              Manage your hostel life, admissions, and more with ease.
+            </p>
+            <button
+              onClick={() => navigate("/login")}
+              className="flex items-center gap-2 px-10 py-4 text-white text-lg font-bold rounded-xl shadow-lg hover:opacity-90 transition-all duration-200 animate-fade-in-up"
               style={{ backgroundColor: "#022B60" }}
             >
-              <FaGooglePlay className="text-xl" />
-              <span className="font-semibold">Download APK</span>
-            </a>
+              <LogIn className="text-xl" />
+              Student Login
+            </button>
           </div>
-          <div className="mt-8 text-xs text-gray-400 text-center">
-            Works on Android devices. iOS coming soon!
-          </div>
-        </div>
-        {/* Right: Login */}
-        <div className="flex flex-col justify-center items-center p-10 bg-white">
-          <h2
-            className="text-4xl font-extrabold mb-4 animate-fade-in-down"
-            style={{ color: "#022B60" }}
-          >
-            Welcome to Anna Oasis
-          </h2>
-          <p className="text-gray-600 mb-8 text-center">
-            Manage your hostel life, admissions, and more with ease.
-          </p>
-          <button
-            onClick={() => navigate("/login")}
-            className="flex items-center gap-2 px-10 py-4 text-white text-lg font-bold rounded-xl shadow-lg hover:opacity-90 transition-all duration-200 animate-fade-in-up"
-            style={{ backgroundColor: "#022B60" }}
-          >
-            <LogIn className="text-xl" />
-            Student Login
-          </button>
         </div>
       </div>
+      <footer className="w-full py-4 bg-white/80 text-center text-xs text-gray-500 border-t mt-8">
+        <span>
+          Want to delete your account?{' '}
+          <a href="/DeleteAccount" className="text-blue-700 underline hover:text-blue-900">Request Data Deletion</a>
+        </span>
+      </footer>
     </div>
   );
 }

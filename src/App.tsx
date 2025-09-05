@@ -11,6 +11,7 @@ import EmptyPage from "./components/EmptyPage";
 import AdmissionForm from "./pages/Student/admission";
 import DetailsPage from "./pages/Student/details";
 import DetailsEditPage from "./pages/Student/detailsedit";
+import DeleteAccountPage from "@/pages/DeleteAccount";
 import MainLayout from "./components/MainLayout";
 import Landing from "./pages/landing";
 import { Toaster } from "sonner";
@@ -80,6 +81,7 @@ function App() {
             />
           }
         />
+  <Route path="/DeleteAccount" element={<DeleteAccountPage />} />
         <Route path="/404" element={<EmptyPage title="404" description="page not found" />} />
         <Route path="*" element= {<EmptyPage title="404" description="page not found" />} />
       </Routes>
