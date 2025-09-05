@@ -8,7 +8,7 @@ const ApprovePage: React.FC = () => {
   const navigate = useNavigate();
 
   const [rooms, setRooms] = useState<any>([]);
-  const [hostelBlock, setHostelBlock] = useState<any>("Flora");
+  const [hostelBlock, _setHostelBlock] = useState<any>("Flora");
 
   const [selectedFloor, setSelectedFloor] = useState<any>(null);
   const [selectedRoom, setSelectedRoom] = useState<any>(null);

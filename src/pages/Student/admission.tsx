@@ -73,7 +73,7 @@ const AdmissionForm = () => {
   const next = () => setPage((p) => p + 1);
   const prev = () => setPage((p) => p - 1);
 
-  const renderPage = (handleSubmit: () => void, values: any) => {
+  const renderPage = (handleSubmit: () => void) => {
     switch (page) {
       case 0:
         return <AdmissionDetails />;
@@ -163,7 +163,7 @@ const AdmissionForm = () => {
                   Admission for hostel block {hostelBlock} for the year {academic_year}
                 </div>
               )}
-              {renderPage(handleSubmit, values)}
+              {renderPage(handleSubmit)}
               <div className="flex justify-between mt-8">
                 {page > 0 && page < 2 && (
                   <Button variant="outline" onClick={prev} className="transition-all duration-200">

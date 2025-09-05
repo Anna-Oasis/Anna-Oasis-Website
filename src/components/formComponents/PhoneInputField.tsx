@@ -15,7 +15,7 @@ function PhoneInputField({ label, value, placeholder }: PhoneInputFieldProps) {
   const { values, setFieldValue, touched, errors } = useFormikContext<any>();
 
   // Format to E.164 on every change
-  const handleChange = (phone: string, country: any, e: any, formattedValue: string) => {
+  const handleChange = (phone: string) => {
     let formatted = phone.replace(/[^\d+]/g, "");
     if (!formatted.startsWith("+")) {
       formatted = "+" + formatted.replace(/^(\d+)/, "$1");

@@ -4,7 +4,7 @@ import {
   managerApprove,
   managerDecline,
 } from "../../utils/manager/managerAdmissionApi";
-import ApprovalCard, { badgeStatus, type BadgeStatusValue } from "@/components/approvalCard";
+import ApprovalCard, { type BadgeStatusValue } from "@/components/approvalCard";
 import { getAdmissionBadgeStatus } from "@/utils/getBadgeStatus";
 import {
   Dialog,

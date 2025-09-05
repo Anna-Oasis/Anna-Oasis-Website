@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ApprovalCard, { badgeStatus, type BadgeStatusValue } from '@components/approvalCard';
+import ApprovalCard, { type BadgeStatusValue } from '@components/approvalCard';
 import { getAllRCAdmissions, allocateRoomAdmission } from '../../../utils/RC/rcAdimissionApi';
 import { getAdmissionBadgeStatus } from '@/utils/getBadgeStatus';
 import { useNavigate } from 'react-router';

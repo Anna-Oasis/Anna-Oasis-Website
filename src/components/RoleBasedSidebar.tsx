@@ -48,7 +48,7 @@ function getLinksByRole(role: string) {
 export default function RoleBasedSidebar() {
   const navigate = useNavigate();
   const [role, setRole] = useState<string | null>(null);
-  const [user, setUser] = useState<any>(null);
+  const [_user, setUser] = useState<any>(null);
   const [logoutOpen, setLogoutOpen] = useState(false);
   const setDetails = useUserStore((state) => state.setDetails);
 

@@ -4,7 +4,6 @@ import DateAndTimePicker from "@/components/formComponents/DatePicker";
 import RadioField from "@/components/formComponents/RadioField";
 import PhoneInputField from "@/components/formComponents/PhoneInputField";
 import {
-  Departments,
   semesters,
   bloodGroups,
   ugCourses,
