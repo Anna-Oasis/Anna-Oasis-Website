@@ -24,7 +24,7 @@ interface DateAndTimePickerProps {
 const DateAndTimePicker = ({
   label,
   value,
-  placeholder = "Select date/time",
+  placeholder = "Select date",
   minimumDate,
   maximumDate,
   showDate = true,
@@ -38,7 +38,7 @@ const DateAndTimePicker = ({
   let dateValue: Date | undefined = undefined;
   if (values[value]) {
     if (showDate) {
-      // Expecting ISO string
+      // Expecting YYYY-MM-DD string
       const d = new Date(values[value]);
       if (!isNaN(d.getTime())) {
         dateValue = d;
@@ -52,7 +52,11 @@ const DateAndTimePicker = ({
     if (!selected) return;
     let newValue = "";
     if (showDate) {
-      newValue = selected.toISOString().split("T")[0];
+      // Use local date, not UTC
+      const year = selected.getFullYear();
+      const month = String(selected.getMonth() + 1).padStart(2, "0");
+      const day = String(selected.getDate()).padStart(2, "0");
+      newValue = `${year}-${month}-${day}`;
     }
     setFieldValue(value, newValue);
   };
@@ -81,15 +85,12 @@ const DateAndTimePicker = ({
                   selected={dateValue}
                   captionLayout="dropdown"
                   onSelect={handleDateChange}
-                  fromDate={minimumDate}
-                  toDate={maximumDate}
                   {...props}
                 />
               </PopoverContent>
             </Popover>
           </div>
         )}
-        {/* Remove time input */}
       </div>
       {touched[value] && typeof errors[value] === "string" && (
         <div className="text-red-500 mt-1 italic text-sm">{errors[value]}</div>

@@ -1,0 +1,20 @@
+import * as Yup from "yup";
+
+const validationSchemas = [
+  // Page 0: Admission Details + Payment
+  Yup.object({
+    hostelBlock: Yup.string().required("Required"),
+    messPreference: Yup.string().required("Required"),
+    previousResident: Yup.string().required("Required"),
+    transactionId: Yup.string().trim().required("Transaction ID is required"),
+    transactionPhotoUrl: Yup.string().required("Payment screenshot is required")
+  }),
+  // Page 1: Declaration
+  Yup.object({
+    declaration: Yup.array().of(Yup.string()).min(2, "Required"),
+  }),
+  // Page 2: Preview (no validation)
+  Yup.object({}),
+];
+
+export default validationSchemas;
