@@ -8,17 +8,22 @@ const LoginCard = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl p-4 w-full max-w-md mx-auto">
-      <div className="text-center">
+    <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8 w-full max-w-md mx-auto">
+      <div className="text-center mb-6 sm:mb-8">
         <img
           src="/images/login_logo.png"
           alt="Anna Oasis"
-          className="w-56 h-56 mx-auto"
+          className="w-40 h-40 sm:w-52 sm:h-52 mx-auto"
         />
-        <h2 className="text-xl font-bold mb-2" style={{color: '#022B60'}}>
+        <h2
+          className="text-lg sm:text-xl font-bold mb-2"
+          style={{ color: "#022B60" }}
+        >
           Welcome Back
         </h2>
-        <p className="text-gray-600">Sign in to your account</p>
+        <p className="text-gray-600 text-sm sm:text-base">
+          Sign in to your account
+        </p>
       </div>
 
       <Formik
@@ -71,8 +76,8 @@ const LoginCard = () => {
                   name="email"
                   type="email"
                   placeholder="Enter your email"
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                  style={{'--tw-ring-color': '#022B60'} as React.CSSProperties}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  style={{ "--tw-ring-color": "#022B60" } as React.CSSProperties}
                 />
               </div>
               <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
@@ -89,8 +94,8 @@ const LoginCard = () => {
                   name="password"
                   type="password"
                   placeholder="Enter your password"
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                  style={{'--tw-ring-color': '#022B60'} as React.CSSProperties}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  style={{ "--tw-ring-color": "#022B60" } as React.CSSProperties}
                 />
               </div>
               <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
@@ -99,20 +104,20 @@ const LoginCard = () => {
             <button
               type="submit"
               onSubmit={() => handleSubmit()}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 text-white font-semibold rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 transform hover:scale-105"
-              style={{backgroundColor: '#022B60'}}
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 text-white text-sm sm:text-base font-semibold rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 transform hover:scale-105"
+              style={{ backgroundColor: "#022B60" }}
             >
               <LogIn className="h-5 w-5" />
               Sign In
             </button>
 
             <div className="text-center pt-4 border-t border-gray-200">
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-sm">
                 Don't have an account?{" "}
-                <a 
-                  href="/register" 
+                <a
+                  href="/register"
                   className="font-semibold hover:underline transition-all duration-200"
-                  style={{color: '#022B60'}}
+                  style={{ color: "#022B60" }}
                 >
                   Register here
                 </a>
