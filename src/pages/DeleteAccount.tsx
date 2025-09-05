@@ -18,7 +18,7 @@ const DeleteAccountPage = () => {
     const body = encodeURIComponent(
       `Hello,\n\nI would like to request deletion of my account data.\n\nEmail: ${email}\nRoll Number: ${roll}\n\nThank you.`
     );
-    window.location.href = `mailto:annaoasishostel@gmail.com?subject=${subject}&body=${body}`;
+    window.open(`mailto:annaoasishostel@gmail.com?subject=${subject}&body=${body}`, "_blank");
     setSubmitted(true);
   };
 
@@ -70,9 +70,9 @@ const DeleteAccountPage = () => {
           </form>
           {submitted && (
             <Alert className="mt-4">
-              <AlertTitle>Request Sent</AlertTitle>
+              <AlertTitle>Next Step</AlertTitle>
               <AlertDescription>
-                Your request has been submitted. We will process your request within 7 days.
+                Please send the email that has opened in your email client. We will process your request within 7 days after receiving your email.
               </AlertDescription>
             </Alert>
           )}
