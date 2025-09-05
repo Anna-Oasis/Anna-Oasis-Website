@@ -14,7 +14,11 @@ const DeleteAccountPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would send the email and roll number to your backend to trigger the email
+    const subject = encodeURIComponent("Data Deletion Request");
+    const body = encodeURIComponent(
+      `Hello,\n\nI would like to request deletion of my account data.\n\nEmail: ${email}\nRoll Number: ${roll}\n\nThank you.`
+    );
+    window.location.href = `mailto:annaoasishostel@gmail.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
 

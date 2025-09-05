@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaGooglePlay } from "react-icons/fa";
 import { LogIn } from "lucide-react";
+import { Button } from "../components/ui/button";
 
 function LoadingScreen() {
   return (
@@ -67,15 +68,12 @@ export default function Landing() {
               admissions, view status, and more right from your phone!
             </p>
             <div className="flex gap-4 flex-wrap justify-center">
-              <a
-                href="/anna_oasis_apk.apk"
-                download
-                className="flex items-center gap-2 px-4 sm:px-5 py-3 text-white rounded-lg shadow hover:scale-105 transition-transform text-sm sm:text-base"
-                style={{ backgroundColor: "#022B60" }}
-              >
-                <FaGooglePlay className="text-lg sm:text-xl" />
-                <span className="font-semibold">Download APK</span>
-              </a>
+              <Button asChild className="flex items-center gap-2 px-4 sm:px-5 py-3 text-sm sm:text-base font-semibold rounded-lg shadow hover:scale-105 transition-transform bg-[#022B60]">
+                <a href="/anna_oasis_apk.apk" download>
+                  <FaGooglePlay className="text-lg sm:text-xl" />
+                  <span>Download APK</span>
+                </a>
+              </Button>
             </div>
             <div className="mt-6 sm:mt-8 text-xs text-gray-400">
               Works on Android devices. iOS coming soon!
@@ -93,14 +91,13 @@ export default function Landing() {
             <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
               Manage your hostel life, admissions, and more with ease.
             </p>
-            <button
+            <Button
               onClick={() => navigate("/login")}
-              className="flex items-center gap-2 px-8 sm:px-10 py-3 sm:py-4 text-white text-sm sm:text-lg font-bold rounded-xl shadow-lg hover:opacity-90 transition-all duration-200 animate-fade-in-up"
-              style={{ backgroundColor: "#022B60" }}
+              className="flex items-center gap-2 px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-lg font-bold rounded-xl shadow-lg hover:opacity-90 transition-all duration-200 animate-fade-in-up bg-[#022B60]"
             >
               <LogIn className="text-lg sm:text-xl" />
               Student Login
-            </button>
+            </Button>
           </div>
         </div>
       </main>
