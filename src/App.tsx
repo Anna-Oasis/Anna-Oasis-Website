@@ -17,6 +17,7 @@ import Landing from "./pages/landing";
 import { Toaster } from "sonner";
 import ExecutiveWardenPage from "./pages/ExecutiveWarden/home";
 import ExecutiveWardenAdmissionSession from "./pages/ExecutiveWarden/AdmissionSession/ewAdmission"; 
+import AdmissionVerificationPage from "./pages/ExecutiveWarden/AdmissionVerifcation/index";
 function App() {
   return (
     <>
@@ -94,6 +95,12 @@ function App() {
         <Route path="/ExecutiveWarden/AdmissionSession/ewAdmission" element={
           <ProtectedRoute
             element={<MainLayout><ExecutiveWardenAdmissionSession /></MainLayout>}
+            roles={["executiveWarden"]}
+          />
+        } />
+        <Route path="/ExecutiveWarden/AdmissionVerification/index" element={
+          <ProtectedRoute
+            element={<MainLayout><AdmissionVerificationPage /></MainLayout>}
             roles={["executiveWarden"]}
           />
         } />
