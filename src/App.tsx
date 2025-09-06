@@ -17,7 +17,11 @@ import Landing from "./pages/landing";
 import { Toaster } from "sonner";
 import ExecutiveWardenPage from "./pages/ExecutiveWarden/home";
 import ExecutiveWardenAdmissionSession from "./pages/ExecutiveWarden/AdmissionSession/ewAdmission"; 
-import AdmissionVerificationPage from "./pages/ExecutiveWarden/AdmissionVerifcation/index";
+import AdmissionVerificationPage from "./pages/ExecutiveWarden/AdmissionVerifcation/ewAdmissionVerification";
+import RCLeaveManagementPage from "./pages/ExecutiveWarden/RcLeave/ewRcLeave";
+import RCManagementPage from "./pages/ExecutiveWarden/RCManagement/ewRcManagement"; 
+import RoomsManagementPage from "./pages/ExecutiveWarden/Rooms/ewRooms";
+
 function App() {
   return (
     <>
@@ -92,19 +96,40 @@ function App() {
             roles={["executiveWarden"]}
           />
         } />
-        <Route path="/ExecutiveWarden/AdmissionSession/ewAdmission" element={
+        <Route path="/ExecutiveWarden/AdmissionSession" element={
           <ProtectedRoute
             element={<MainLayout><ExecutiveWardenAdmissionSession /></MainLayout>}
             roles={["executiveWarden"]}
           />
         } />
-        <Route path="/ExecutiveWarden/AdmissionVerification/index" element={
+        <Route path="/ExecutiveWarden/AdmissionVerification" element={
           <ProtectedRoute
             element={<MainLayout><AdmissionVerificationPage /></MainLayout>}
             roles={["executiveWarden"]}
           />
         } />
+        <Route path="/ExecutiveWarden/RcLeave" element={
+          <ProtectedRoute
+            element={<MainLayout><RCLeaveManagementPage/></MainLayout>}
+            roles={["executiveWarden"]}
+          />
+        } />
+        <Route path="/ExecutiveWarden/RCManagement" element={
+          <ProtectedRoute
+            element={<MainLayout><RCManagementPage /></MainLayout>}
+            roles={["executiveWarden"]}
+          />
+        } />
+        <Route path="/ExecutiveWarden/Rooms" element={
+          <ProtectedRoute
+            element={<MainLayout><RoomsManagementPage /></MainLayout>}
+            roles={["executiveWarden"]}
+          />
+        } />
+
       </Routes>
+      
+
     </BrowserRouter>
     <Toaster richColors position="top-center"/>
     </>

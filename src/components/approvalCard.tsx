@@ -11,9 +11,9 @@ import {
 import { Button } from "@/components/ui/button";
 
 export const badgeStatus = {
-  Pending: 'pending',
-  Approved: 'approved',
-  Rejected: 'rejected',
+  Pending: 'Pending',
+  Approved: 'Approved',
+  Rejected: 'Rejected',
 } as const;
 
 export type BadgeStatus = keyof typeof badgeStatus;

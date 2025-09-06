@@ -31,8 +31,8 @@ const deputyWardenLinks = [
 ];
 const executiveWardenLinks = [
   { label: "Home", path: "/ExecutiveWarden/home" },
-  { label: "Admission Session", path: "/ExecutiveWarden/AdmissionSession/ewAdmission" },
-  { label: "Admission Verification", path: "/ExecutiveWarden/AdmissionVerification/index" },
+  { label: "Admission Session", path: "/ExecutiveWarden/AdmissionSession" },
+  { label: "Admission Verification", path: "/ExecutiveWarden/AdmissionVerification" },
   { label : "Declaration", path: "/ExecutiveWarden/Declaration" },
   { label : "RC Leave", path: "/ExecutiveWarden/RcLeave" },
   { label : "RC Management", path: "/ExecutiveWarden/RCManagement" },

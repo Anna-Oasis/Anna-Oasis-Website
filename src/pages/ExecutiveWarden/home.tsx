@@ -13,7 +13,7 @@ export default function ExecutiveWardenPage() {
   const menuItems = [
     {
       title: "Start Admission Session",
-      route: "/ExecutiveWarden/AdmissionSession/ewAdmission",
+      route: "/ExecutiveWarden/AdmissionSession",
       icon: PlayCircleIcon,
       color: "#022B60",
     },
@@ -53,7 +53,7 @@ export default function ExecutiveWardenPage() {
     <div className="h-screen bg-gray-50">
       <main className="p-6 overflow-y-auto">
         <div className="w-full max-w-5xl mx-auto">
-          <h1 className="text-2xl font-bold mb-6">Executive Warden Dashboard</h1>
+          <h1 className="text-2xl font-bold mb-6 text-[#022B60]">Executive Warden Dashboard</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {menuItems.map((item, idx) => {
               const Icon = item.icon;

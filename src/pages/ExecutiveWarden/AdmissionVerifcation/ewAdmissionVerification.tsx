@@ -54,10 +54,8 @@ export default function AdmissionVerificationPage() {
     setDeclineModal({ open: false, admissionId: undefined });
   };
 
-  // Combine both statuses into one list
   const pendingAdmissions = admissions.filter(
-    (item) =>
-      item.admission.status === "1" || item.admission.status === "2"
+    (item) => item.admission.status === "1" || item.admission.status === "2"
   );
 
   return (
@@ -73,17 +71,11 @@ export default function AdmissionVerificationPage() {
               subTitle={`Block: ${item.admission.hostelBlock}, Year: ${item.admission.academicYear}`}
               badge={getAdmissionBadgeStatus(item.admission.status)}
               data={{ ...item.admission, ...item.student }}
-              onApprove={() => {
-                if (item.admission.status === "1") {
-                  // Navigate to details page
+              onApprove={() =>
                   navigate(
                     `/ExecutiveWarden/AdmissionVerification/${item.admission.hostelBlock}/${item.admission.academicYear}/${item.admission.id}`
-                  );
-                } else {
-                  // Final approval directly
-                  handleApprove(String(item.admission.id));
+                  )
                 }
-              }}
               onDecline={() => handleDecline(String(item.admission.id))}
             />
           ))
