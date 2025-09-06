@@ -29,6 +29,15 @@ const rcLinks = [
 const deputyWardenLinks = [
   { label: "Admission Verification", path: "/DeputyWarden/Verification/AdmissionVerification" },
 ];
+const executiveWardenLinks = [
+  { label: "Home", path: "/ExecutiveWarden/home" },
+  { label: "Admission Session", path: "/ExecutiveWarden/AdmissionSession/ewAdmission" },
+  { label: "Admission Verification", path: "/ExecutiveWarden/AdmissionVerification" },
+  { label : "Declaration", path: "/ExecutiveWarden/Declaration" },
+  { label : "RC Leave", path: "/ExecutiveWarden/RcLeave" },
+  { label : "RC Management", path: "/ExecutiveWarden/RCManagement" },
+  { label : "Rooms", path: "/ExecutiveWarden/Rooms" },
+];
 
 function getLinksByRole(role: string) {
   switch (role) {
@@ -40,6 +49,8 @@ function getLinksByRole(role: string) {
       return rcLinks;
     case "DeputyWarden":
       return deputyWardenLinks;
+    case "executiveWarden":
+      return executiveWardenLinks;
     default:
       return [];
   }

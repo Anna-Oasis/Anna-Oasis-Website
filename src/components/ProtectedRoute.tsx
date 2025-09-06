@@ -1,5 +1,5 @@
 import React, { useEffect, useState, type ReactElement } from "react";
-import { Navigate } from "react-router";
+import { Navigate } from "react-router-dom";
 import { getToken, verifyToken } from "@/utils/auth/authUtil";
 
 interface ProtectedRouteProps {
