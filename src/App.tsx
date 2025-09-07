@@ -3,7 +3,6 @@ import Addmission from "./pages/addmission";
 import RoomAllocationPage from "./pages/RC/RoomAllocation/allocation";
 import ApprovePage from "./pages/RC/RoomAllocation/approve/approve";
 import ManagerPaymentVerificationsPage from "./pages/Manager/paymentVerification";
-import DeputyWardenAdmissionsVerificationPage from "./pages/DeputyWarden/Verifications/AdmissionVerfication";
 import Login from "./pages/auth/Login"
 import ProtectedRoute from "./components/ProtectedRoute";
 import SIgnup from "./pages/auth/SIgnup";
@@ -15,6 +14,7 @@ import DeleteAccountPage from "@/pages/DeleteAccount";
 import MainLayout from "./components/MainLayout";
 import Landing from "./pages/landing";
 import { Toaster } from "sonner";
+import { deputyWardenRoutes } from "./pages/DeputyWarden/Routes";
 
 function App() {
   return (
@@ -43,15 +43,16 @@ function App() {
             />
           }
         />
-        <Route
-          path="/DeputyWarden/Verification/AdmissionVerification"
-          element={
-            <ProtectedRoute
-              element={<MainLayout><DeputyWardenAdmissionsVerificationPage /></MainLayout>}
-              roles={["DeputyWarden"]}
-            />
-          }
-        />
+        {/* DeputyWarden Routes */}
+        {deputyWardenRoutes.map(({ path, element }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <ProtectedRoute element={<MainLayout>{element}</MainLayout>} roles={["deputyWarden"]} />
+            }
+          />
+        ))}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SIgnup />} />
         <Route
