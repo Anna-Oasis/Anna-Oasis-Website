@@ -29,6 +29,10 @@ const managerLinks = [
 ];
 const rcLinks = [
   { label: "Room Allocation", path: "/RC/RoomAllocation" },
+  { label: "Student Verification", path: "/RC/StudentVerification" },
+  { label: "Attendance", path: "/RC/Attendance" },
+  { label: "Leave", path: "/RC/ApplyForLeave" },
+  { label: "Personal Details", path: "/RC/Details" },
 ];
 const deputyWardenLinks = [
   { label: "Admission Verification", path: "/DeputyWarden/Verification/AdmissionVerification" },

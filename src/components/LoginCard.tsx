@@ -44,7 +44,7 @@ const LoginCard = () => {
                     navigate("/Manager");
                     break;
                   case "rc":
-                    navigate("/RC");
+                    navigate("/RC/Details");
                     break;
                   case "DeputyWarden":
                     navigate("/DeputyWarden");
