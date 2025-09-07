@@ -49,8 +49,8 @@ const LoginCard = () => {
                   case "DeputyWarden":
                     navigate("/DeputyWarden");
                     break;
-                  case "ExecutiveWarden":
-                    navigate("/ExecutiveWarden");
+                  case "executiveWarden":
+                    navigate("/ExecutiveWarden/home");
                     break;
                   default:
                     alert("Unknown role, redirecting to home.");

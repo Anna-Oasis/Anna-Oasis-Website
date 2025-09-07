@@ -15,6 +15,12 @@ import DeleteAccountPage from "@/pages/DeleteAccount";
 import MainLayout from "./components/MainLayout";
 import Landing from "./pages/landing";
 import { Toaster } from "sonner";
+import ExecutiveWardenPage from "./pages/ExecutiveWarden/home";
+import ExecutiveWardenAdmissionSession from "./pages/ExecutiveWarden/AdmissionSession/ewAdmission"; 
+import AdmissionVerificationPage from "./pages/ExecutiveWarden/AdmissionVerifcation/ewAdmissionVerification";
+import RCLeaveManagementPage from "./pages/ExecutiveWarden/RcLeave/ewRcLeave";
+import RCManagementPage from "./pages/ExecutiveWarden/RCManagement/ewRcManagement"; 
+import RoomsManagementPage from "./pages/ExecutiveWarden/Rooms/ewRooms";
 
 function App() {
   return (
@@ -84,7 +90,46 @@ function App() {
   <Route path="/DeleteAccount" element={<DeleteAccountPage />} />
         <Route path="/404" element={<EmptyPage title="404" description="page not found" />} />
         <Route path="*" element= {<EmptyPage title="404" description="page not found" />} />
+        <Route path="/ExecutiveWarden/home" element={
+          <ProtectedRoute
+            element={<MainLayout><ExecutiveWardenPage /></MainLayout>}
+            roles={["executiveWarden"]}
+          />
+        } />
+        <Route path="/ExecutiveWarden/AdmissionSession" element={
+          <ProtectedRoute
+            element={<MainLayout><ExecutiveWardenAdmissionSession /></MainLayout>}
+            roles={["executiveWarden"]}
+          />
+        } />
+        <Route path="/ExecutiveWarden/AdmissionVerification" element={
+          <ProtectedRoute
+            element={<MainLayout><AdmissionVerificationPage /></MainLayout>}
+            roles={["executiveWarden"]}
+          />
+        } />
+        <Route path="/ExecutiveWarden/RcLeave" element={
+          <ProtectedRoute
+            element={<MainLayout><RCLeaveManagementPage/></MainLayout>}
+            roles={["executiveWarden"]}
+          />
+        } />
+        <Route path="/ExecutiveWarden/RCManagement" element={
+          <ProtectedRoute
+            element={<MainLayout><RCManagementPage /></MainLayout>}
+            roles={["executiveWarden"]}
+          />
+        } />
+        <Route path="/ExecutiveWarden/Rooms" element={
+          <ProtectedRoute
+            element={<MainLayout><RoomsManagementPage /></MainLayout>}
+            roles={["executiveWarden"]}
+          />
+        } />
+
       </Routes>
+      
+
     </BrowserRouter>
     <Toaster richColors position="top-center"/>
     </>
