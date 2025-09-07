@@ -21,7 +21,14 @@ const studentLinks = [
   { label: "Details", path: "/User/Student/details" },
 ];
 const managerLinks = [
-  { label: "Payment Verification", path: "/Manager/PaymentVerfication" },
+  { label: "Payment Verification", path: "/Manager/PaymentVerification" },
+  { label: "Grievances", path: "/Manager/Grievances" },
+  { label: "Student Details", path: "/Manager/Details" },
+  { label: "Attendance", path: "/Manager/Attendance" },
+  { label: "Vacating Hostel", path: "/Manager/VacatingHostel" },
+  { label: "Declaration", path: "/Manager/Declaration" },
+  { label: "Admission Verification", path: "/Manager/Verification/AdmissionVerification" },
+  { label: "Admission Approvals", path: "/Manager/AdmissionApproval" }
 ];
 const rcLinks = [
   { label: "Room Allocation", path: "/RC/RoomAllocation" },

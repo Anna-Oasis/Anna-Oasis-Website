@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getAllDWAdmissions, handleUpdateAdmission } from "../../../utils/deputyWarden/dwAdmissionApi";
 import ApprovalCard from "@/components/approvalCard";
 import { getAdmissionBadgeStatus } from "@/utils/getBadgeStatus";
 import DeclineComment from "@/components/modals/declineComment";
 import { Inbox } from "lucide-react";
+import { getAllManagerAdmissions,managerApprove,managerDecline } from "@/utils/manager/managerAdmissionApi";
 
-const DeputyWardenAdmissionsVerificationPage: React.FC = () => {
+const ManagerAdmissionsVerificationPage: React.FC = () => {
   const [admissions, setAdmissions] = useState<any[]>([]);
   const [declineModal, setDeclineModal] = useState<{ open: boolean; admissionId?: string }>({
     open: false,
@@ -13,7 +13,7 @@ const DeputyWardenAdmissionsVerificationPage: React.FC = () => {
 
   const fetchAdmissions = async () => {
     try {
-      const data = await getAllDWAdmissions();
+      const data = await getAllManagerAdmissions();
       setAdmissions(Array.isArray(data) ? data : []);
     } catch (err) {
       setAdmissions([]);
@@ -25,10 +25,7 @@ const DeputyWardenAdmissionsVerificationPage: React.FC = () => {
   }, []);
 
   const handleApprove = async (admissionId: string) => {
-    await handleUpdateAdmission(admissionId, {
-      approve: true,
-      comment: "Approved",
-    });
+    await managerApprove(admissionId);
     fetchAdmissions();
   };
 
@@ -38,10 +35,7 @@ const DeputyWardenAdmissionsVerificationPage: React.FC = () => {
 
   const handleDeclineSubmit = async (comment: string) => {
     if (declineModal.admissionId) {
-      await handleUpdateAdmission(declineModal.admissionId, {
-        approve: false,
-        comment,
-      });
+      await managerDecline(declineModal.admissionId,comment);
       fetchAdmissions();
     }
     setDeclineModal({ open: false, admissionId: undefined });
@@ -49,7 +43,7 @@ const DeputyWardenAdmissionsVerificationPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white px-4 py-6">
-      <p className='text-2xl text-center'>DeputyWarden Room Allocation Verification</p>
+      <p className='text-2xl text-center'>Manager Room Allocation Verification</p>
       {admissions.length === 0 ? (
         <div className="flex flex-col justify-center items-center mt-20 text-center">
           <Inbox className="w-12 h-12 text-gray-400 mb-4" />
@@ -85,4 +79,4 @@ const DeputyWardenAdmissionsVerificationPage: React.FC = () => {
   );
 };
 
-export default DeputyWardenAdmissionsVerificationPage;
+export default ManagerAdmissionsVerificationPage;
