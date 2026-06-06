@@ -1,130 +1,145 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router";
-import { allocateRoomAdmission, getAllRooms } from "../../../../utils/RC/rcAdimissionApi";
-import { ChevronDown } from "lucide-react";
+﻿import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import EmptyPage from "@/components/EmptyPage";
+import { allocateRoomAdmission, getAdmissionSessions, getAllRooms, type AdmissionSession, type Room } from "@/utils/RC/rcAdimissionApi";
 
-const ApprovePage: React.FC = () => {
+const ROOM_SIZE = 3;
+
+export default function ApprovePage() {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const [rooms, setRooms] = useState<any>([]);
-  const [hostelBlock, _setHostelBlock] = useState<any>("Flora");
-
-  const [selectedFloor, setSelectedFloor] = useState<any>(null);
-  const [selectedRoom, setSelectedRoom] = useState<any>(null);
+  const [sessions, setSessions] = useState<AdmissionSession[]>([]);
+  const [academicYear, setAcademicYear] = useState("");
+  const [rooms, setRooms] = useState<Room[]>([]);
+  const [selectedFloor, setSelectedFloor] = useState<number | null>(null);
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+  const [loadingRooms, setLoadingRooms] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    const fetchRooms = async () => {
-      try {
-        const data = await getAllRooms();
-        setRooms(data);
-        if (data && data.length > 0) setSelectedFloor(0);
-      } catch (err) {
-        console.error("Failed to fetch rooms:", err);
-        alert("Failed to load room data.");
-      }
-    };
-    fetchRooms();
+    getAdmissionSessions()
+      .then((data) => {
+        setSessions(data);
+        if (data[0]?.academic_year) setAcademicYear(data[0].academic_year);
+      })
+      .catch((error) => toast.error(error.response?.data?.message || "Failed to fetch admission sessions"));
   }, []);
 
-  const handleFloorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const floor = parseInt(e.target.value);
-    setSelectedFloor(floor);
+  const loadRooms = async () => {
+    if (!academicYear) {
+      toast.error("Select an academic year first");
+      return;
+    }
+    setLoadingRooms(true);
     setSelectedRoom(null);
+    try {
+      setRooms(await getAllRooms(academicYear));
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || error.message || "Failed to load room data");
+      setRooms([]);
+    } finally {
+      setLoadingRooms(false);
+    }
   };
 
-  const handleRoomSelect = (roomNumber: number) => {
-    setSelectedRoom({ roomNumber, floor: selectedFloor });
-  };
+  useEffect(() => {
+    if (academicYear) loadRooms();
+  }, [academicYear]);
+
+  const floors = useMemo(() => {
+    return Array.from(new Set(rooms.map((room) => Number(room.floor ?? 0)))).sort((a, b) => a - b);
+  }, [rooms]);
+
+  useEffect(() => {
+    if (selectedFloor === null && floors.length > 0) setSelectedFloor(floors[0]);
+  }, [floors, selectedFloor]);
+
+  const floorRooms = useMemo(() => {
+    return selectedFloor === null ? [] : rooms.filter((room) => Number(room.floor) === selectedFloor);
+  }, [rooms, selectedFloor]);
 
   const handleAllocation = async () => {
     if (!selectedRoom || !id) return;
-
+    setSubmitting(true);
     try {
       await allocateRoomAdmission(id, {
         approve: true,
         comment: "Approved",
         room: selectedRoom.roomNumber,
         floor: selectedRoom.floor,
-        hostel_block: hostelBlock,
+        hostel_block: selectedRoom.hostelBlock,
       });
-      alert("Room allocated successfully!");
+      toast.success("Room allocated successfully");
       navigate("/RC/RoomAllocation");
     } catch (error: any) {
-      console.error("Allocation error:", error);
-      alert(
-        error?.response?.data?.message ||
-        error?.message ||
-        "Something went wrong while allocating the room."
-      );
+      toast.error(error?.response?.data?.message || error?.message || "Something went wrong while allocating the room");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen p-6 bg-white">
-      <h1 className="text-2xl font-bold mb-6">Approve Room Allocation - {id}</h1>
-
-      {/* Floor Select */}
+    <div className="min-h-screen bg-slate-50 px-6 py-8">
       <div className="mb-6">
-        <label className="block mb-2 font-medium">Select Floor</label>
-        <div className="relative w-full">
-          <select
-            value={selectedFloor ?? ""}
-            onChange={handleFloorChange}
-            className="w-full border border-gray-300 rounded px-4 py-2 appearance-none"
-          >
-            {rooms.map((_ : any, idx : number) => (
-              <option key={idx} value={idx}>
-                Floor {idx}
-              </option>
-            ))}
-          </select>
-          <ChevronDown className="absolute right-3 top-3.5 h-4 w-4 text-gray-500 pointer-events-none" />
-        </div>
+        <h1 className="text-3xl font-bold text-slate-900">Approve Room Allocation</h1>
+        <p className="mt-2 text-slate-600">Admission #{id}</p>
       </div>
 
-      {/* Room Buttons */}
-      {selectedFloor !== null && rooms[selectedFloor] && (
-        <div className="flex flex-wrap gap-4 mb-6">
-          {rooms[selectedFloor].map((room: any) => {
-            const isSelected =
-              selectedRoom?.roomNumber === room.roomNumber &&
-              selectedRoom?.floor === selectedFloor;
-
-            return (
-              <button
-                key={room.roomNumber}
-                onClick={() => handleRoomSelect(room.roomNumber)}
-                className={`w-[30%] p-4 rounded-lg text-center transition ${
-                  isSelected ? "bg-blue-600 text-white" : "bg-gray-100 text-black"
-                }`}
-              >
-                <div className="font-semibold text-base">
-                  Room {room.roomNumber}
-                </div>
-                <div className="text-sm mt-1">
-                  {room.rollNo ? `Roll No: ${room.rollNo}` : "Vacant"}
-                </div>
-              </button>
-            );
-          })}
+      <div className="mb-6 flex flex-col gap-3 rounded-lg border bg-white p-4 shadow-sm md:flex-row md:items-end">
+        <div className="flex-1">
+          <label className="mb-1 block text-sm font-medium text-slate-700">Academic Year</label>
+          <select className="h-10 w-full rounded-md border bg-white px-3 text-sm" value={academicYear} onChange={(event) => setAcademicYear(event.target.value)}>
+            <option value="">Select academic year</option>
+            {sessions.map((session) => <option key={session.id} value={session.academic_year}>{session.academic_year}</option>)}
+          </select>
         </div>
-      )}
+        <Button onClick={loadRooms} disabled={loadingRooms}>{loadingRooms ? "Fetching..." : "Fetch Rooms"}</Button>
+      </div>
 
-      {/* Allocate Button */}
-      <button
-        disabled={!selectedRoom}
-        onClick={handleAllocation}
-        className={`w-full py-3 rounded-lg font-semibold text-white ${
-          selectedRoom
-            ? "bg-blue-600 hover:bg-blue-700"
-            : "bg-gray-400 cursor-not-allowed"
-        }`}
-      >
-        Allocate Room
-      </button>
+      {rooms.length === 0 && !loadingRooms ? (
+        <EmptyPage title="No rooms loaded" description="Select an academic year and fetch rooms." />
+      ) : (
+        <>
+          <div className="mb-5 flex flex-wrap gap-2">
+            {floors.map((floor) => (
+              <Button key={floor} variant={selectedFloor === floor ? "default" : "outline"} onClick={() => { setSelectedFloor(floor); setSelectedRoom(null); }}>
+                Floor {floor}
+              </Button>
+            ))}
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {floorRooms.map((room) => {
+              const occupants = room.rollNo || [];
+              const full = occupants.length >= ROOM_SIZE;
+              const selected = selectedRoom?.roomNumber === room.roomNumber && selectedRoom?.hostelBlock === room.hostelBlock;
+              return (
+                <button
+                  key={`${room.hostelBlock}-${room.roomNumber}-${room.academicYear}`}
+                  type="button"
+                  disabled={full}
+                  onClick={() => setSelectedRoom(room)}
+                  className={`rounded-lg border p-4 text-left transition ${selected ? "border-[#022B60] bg-blue-50" : "bg-white hover:border-slate-400"} ${full ? "cursor-not-allowed opacity-60" : ""}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="text-lg font-semibold text-slate-900">Room {room.roomNumber}</div>
+                    <div className="text-xs text-slate-500">{occupants.length}/{ROOM_SIZE}</div>
+                  </div>
+                  <div className="mt-1 text-sm text-slate-600">{room.hostelBlock}</div>
+                  <div className="mt-3 text-sm text-slate-500">{occupants.length ? occupants.join(", ") : "Vacant"}</div>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="mt-6 flex gap-3">
+            <Button disabled={!selectedRoom || submitting} onClick={handleAllocation}>{submitting ? "Allocating..." : "Allocate Room"}</Button>
+            <Button variant="outline" onClick={() => navigate("/RC/RoomAllocation")}>Cancel</Button>
+          </div>
+        </>
+      )}
     </div>
   );
-};
-
-export default ApprovePage;
+}

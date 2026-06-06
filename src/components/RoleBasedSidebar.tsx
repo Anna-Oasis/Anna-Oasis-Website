@@ -1,4 +1,4 @@
-import {
+﻿import {
   Sidebar,
   SidebarContent,
   SidebarMenu,
@@ -15,17 +15,29 @@ import LogoutModal from "@/components/LogoutModal";
 import { removeToken } from "@/utils/auth/authUtil";
 import useUserStore from "@/stores/userStore";
 
-
 const studentLinks = [
   { label: "Admission", path: "/User/Student/admission" },
   { label: "Details", path: "/User/Student/details" },
 ];
+
 const managerLinks = [
   { label: "Payment Verification", path: "/Manager/PaymentVerfication" },
 ];
+
 const rcLinks = [
+  { label: "Dashboard", path: "/RC" },
   { label: "Room Allocation", path: "/RC/RoomAllocation" },
+  { label: "Room List", path: "/RC/Rooms" },
+  { label: "Students", path: "/RC/Students" },
+  { label: "Leave Forms", path: "/RC/StudentVerification/LeaveForm" },
+  { label: "Grievances", path: "/RC/StudentVerification/Grievances" },
+  { label: "Summer Vacation", path: "/RC/StudentVerification/SummerVacation" },
+  { label: "Vacating Hostel", path: "/RC/StudentVerification/VacatingHostel" },
+  { label: "Attendance", path: "/RC/Attendance" },
+  { label: "RC Leave", path: "/RC/ApplyForLeave" },
+  { label: "Details", path: "/RC/Details" },
 ];
+
 const deputyWardenLinks = [
   { label: "Admission Verification", path: "/DeputyWarden/Verification/AdmissionVerification" },
 ];
@@ -122,7 +134,7 @@ export default function RoleBasedSidebar() {
             ))}
           </SidebarMenu>
         </SidebarGroup>
-          <SidebarGroup>
+        <SidebarGroup>
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton
@@ -143,3 +155,5 @@ export default function RoleBasedSidebar() {
     </Sidebar>
   );
 }
+
+
