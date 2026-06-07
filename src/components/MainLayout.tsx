@@ -1,25 +1,24 @@
-import { SidebarProvider, useSidebar, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import RoleBasedSidebar from "./RoleBasedSidebar";
 
 function MainContent({ children }: { children: React.ReactNode }) {
-  const { state } = useSidebar();
-  // state: "expanded" | "collapsed"
+  // We remove useSidebar and the manual style={{ marginLeft }}
+  // because SidebarProvider handles this automatically.
   return (
-    <div
-      className="flex-1 flex flex-col transition-all duration-200"
-      style={{
-        marginLeft: state === "expanded" ? "6rem" : "0rem", // match SIDEBAR_WIDTH and SIDEBAR_WIDTH_ICON
-      }}
-    >
-    <div className="text-2xl">
-      <SidebarTrigger className="w-8 h-8" />
-    </div>
-      <main className="flex-1 ">{children}</main>
+    <div className="flex-1 flex flex-col min-h-screen">
+      <header className="flex h-16 shrink-0 items-center gap-2 px-4">
+        <SidebarTrigger className="-ml-1 w-12 h-12 p-2" />
+      </header>
+      <main className="flex-1 p-6">{children}</main>
     </div>
   );
 }
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+export default function MainLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <SidebarProvider>
       <RoleBasedSidebar />

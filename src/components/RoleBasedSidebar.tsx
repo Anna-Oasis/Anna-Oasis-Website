@@ -15,7 +15,6 @@ import LogoutModal from "@/components/LogoutModal";
 import { removeToken } from "@/utils/auth/authUtil";
 import useUserStore from "@/stores/userStore";
 
-
 const studentLinks = [
   { label: "Admission", path: "/User/Student/admission" },
   { label: "Details", path: "/User/Student/details" },
@@ -23,15 +22,24 @@ const studentLinks = [
 const managerLinks = [
   { label: "Payment Verification", path: "/Manager/PaymentVerfication" },
 ];
-const rcLinks = [
-  { label: "Room Allocation", path: "/RC/RoomAllocation" },
-];
+const rcLinks = [{ label: "Room Allocation", path: "/RC/RoomAllocation" }];
 const deputyWardenLinks = [
-  { label: "Admission Verification", path: "/DeputyWarden/Verification/AdmissionVerification" },
+  {
+    label: "Admission Verification",
+    path: "/DeputyWarden/Verification/AdmissionVerification",
+  },
 ];
 const executiveWardenLinks = [
-  {label: "Executive Warden", path: "/ExecutiveWarden"}
-]
+  { label: "Admission Session", path: "/ExecutiveWarden/admission-session" },
+  {
+    label: "Admission Verification",
+    path: "/ExecutiveWarden/admission-verification/all/2026",
+  }, // Defaults or placeholders
+  { label: "Declaration", path: "/ExecutiveWarden/declaration" },
+  { label: "RC Leave", path: "/ExecutiveWarden/rc-leave" },
+  { label: "RC Management", path: "/ExecutiveWarden/rc-management" },
+  { label: "Rooms", path: "/ExecutiveWarden/rooms" },
+];
 
 function getLinksByRole(role: string) {
   switch (role) {
@@ -127,7 +135,7 @@ export default function RoleBasedSidebar() {
             ))}
           </SidebarMenu>
         </SidebarGroup>
-          <SidebarGroup>
+        <SidebarGroup>
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton
