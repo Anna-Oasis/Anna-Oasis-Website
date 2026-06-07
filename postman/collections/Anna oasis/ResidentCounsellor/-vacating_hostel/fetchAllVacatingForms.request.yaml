@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/resident_counsellor/vacating_hostel"
+method: GET
+body:
+  type: json
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJyb2xlIjoicmMiLCJpYXQiOjE3NTAzMjE4ODYsImV4cCI6MTc1MjkxMzg4Nn0.zraPpERF42wgh7-dutVv-9ZW2DMa94ziNa64DrLDXDY
+order: 1000

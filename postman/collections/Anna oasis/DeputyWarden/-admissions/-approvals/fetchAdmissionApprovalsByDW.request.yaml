@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/deputy_warden/admissions/approvals"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{DEPUTYWARDEN_TOKEN}}"
+order: 1000

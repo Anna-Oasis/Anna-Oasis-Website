@@ -1,0 +1,36 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/student/admission"
+method: POST
+body:
+  type: formdata
+  content:
+    - type: text
+      key: roll_number
+      value: 22MCR123
+      disabled: true
+    - type: text
+      key: academicYear
+      value: 2024-2025
+    - type: text
+      key: studentAgreed
+      value: "true"
+    - type: text
+      key: parentAgreed
+      value: "true"
+    - type: text
+      key: previousResident
+      value: "false"
+    - type: text
+      key: hostelBlock
+      value: Flora
+    - type: text
+      key: messPreference
+      value: Veg
+    - type: text
+      key: transaction_id
+      value: TRX123456
+    - type: file
+      key: transactionPhotoUrl
+      src:
+        - postman-cloud:///1f03d82f-eaba-4530-929e-f9aede7ac919
+order: 4000

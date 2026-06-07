@@ -96,7 +96,7 @@ export default function Landing() {
               className="flex items-center gap-2 px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-lg font-bold rounded-xl shadow-lg hover:opacity-90 transition-all duration-200 animate-fade-in-up bg-[#022B60]"
             >
               <LogIn className="text-lg sm:text-xl" />
-              Student Login
+              Login
             </Button>
           </div>
         </div>

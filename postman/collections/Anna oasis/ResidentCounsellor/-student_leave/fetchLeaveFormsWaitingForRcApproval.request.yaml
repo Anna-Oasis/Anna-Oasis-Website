@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/resident_counsellor/student_leave"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJyb2xlIjoicmMiLCJpYXQiOjE3NTEwOTg3MDAsImV4cCI6MTc1MzY5MDcwMH0.WrUyNVIFvqXBooS3WOei-ZzELDDODprkDMauzgAA8_g
+order: 1000

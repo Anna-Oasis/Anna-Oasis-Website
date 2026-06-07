@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/deputy_warden/admissions/room/:admissionId"
+method: PUT
+pathVariables:
+  admissionId: "2"
+body:
+  type: json
+  content: "{\r
+
+    \  \"room\": 1,\r
+
+    \  \"floor\":0,\r
+
+    \  \"hostel_block\":\"Flora\"\r
+
+    }"
+order: 1000

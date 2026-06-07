@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/resident_counsellor/attendance"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"date\": \"2024-06-21\",\r
+
+    \  \"hostel\": \"Flora\",\r
+
+    \  \"floor\": 2,\r
+
+    \  \"no_present\": 45,\r
+
+    \  \"no_absent\": 5,\r
+
+    \  \"absentee\": [\"21CS001\", \"21CS002\", \"21CS003\", \"21CS004\", \"21CS005\"]\r
+
+    }"
+order: 2000

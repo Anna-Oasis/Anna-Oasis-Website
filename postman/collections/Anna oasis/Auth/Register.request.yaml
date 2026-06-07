@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{BASE_URL}}/register"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "name": "Test_ExecutiveWarden",
+        "email": "testexecutivewarden@testing.com",
+        "password": "TestExecutiveWarden",
+        "role" : "executiveWarden"
+    }
+order: 2000

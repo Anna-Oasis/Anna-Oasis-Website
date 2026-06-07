@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/resident_counsellor/leave/complete"
+method: POST
+order: 1000

@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/resident_counsellor/rooms/2025-2026"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJyb2xlIjoicmMiLCJpYXQiOjE3NTExMzM4NzMsImV4cCI6MTc1MzcyNTg3M30.mmqFvExYmnMDPQKK9iNgLaSP95b1lHKrkwzOptNdAQU
+order: 1000

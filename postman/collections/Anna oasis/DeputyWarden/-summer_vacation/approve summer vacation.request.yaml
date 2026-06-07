@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/deputy_warden/summer_vacation/1"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"approve\" : true,\r
+
+    \    \"comment\" : \"dont come again :)\"  \r
+
+    }"
+order: 2000

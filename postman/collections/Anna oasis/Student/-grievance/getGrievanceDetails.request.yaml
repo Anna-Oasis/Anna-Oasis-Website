@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/student/grievance"
+method: GET
+body:
+  type: json
+  content: ""
+order: 2000

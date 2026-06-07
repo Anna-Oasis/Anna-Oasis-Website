@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/manager/declaration"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{MANAGER_TOKEN}}"
+order: 1000

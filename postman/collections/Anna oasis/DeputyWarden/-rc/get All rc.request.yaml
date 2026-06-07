@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/deputy_warden/rc"
+method: GET
+order: 4000

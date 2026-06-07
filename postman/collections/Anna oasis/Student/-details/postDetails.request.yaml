@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/student/details"
+method: POST
+body:
+  type: formdata
+  content: []
+auth:
+  type: bearer
+  credentials:
+    token: "{{STUDENT_TOKEN}}"
+settings:
+  disabledSystemHeaders: []
+order: 2000

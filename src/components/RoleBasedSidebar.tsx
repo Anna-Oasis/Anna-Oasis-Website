@@ -29,6 +29,9 @@ const rcLinks = [
 const deputyWardenLinks = [
   { label: "Admission Verification", path: "/DeputyWarden/Verification/AdmissionVerification" },
 ];
+const executiveWardenLinks = [
+  {label: "Executive Warden", path: "/ExecutiveWarden"}
+]
 
 function getLinksByRole(role: string) {
   switch (role) {
@@ -40,6 +43,8 @@ function getLinksByRole(role: string) {
       return rcLinks;
     case "DeputyWarden":
       return deputyWardenLinks;
+    case "executiveWarden":
+      return executiveWardenLinks;
     default:
       return [];
   }

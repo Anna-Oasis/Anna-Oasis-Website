@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/executive_warden/rc/leave/1"
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+        "status" : "true"
+    }
+order: 3000

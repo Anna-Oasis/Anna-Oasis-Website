@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/deputy_warden/summer_vacation"
+method: GET
+body:
+  type: text
+  content: "{\r
+
+    \    \"approve\" : true,\r
+
+    \    \"comment\" : \"thappu\"  // compulsary when declining a form\r
+
+    }"
+order: 1000

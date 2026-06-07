@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/resident_counsellor/attendance"
+method: GET
+body:
+  type: text
+  content: ""
+order: 1000

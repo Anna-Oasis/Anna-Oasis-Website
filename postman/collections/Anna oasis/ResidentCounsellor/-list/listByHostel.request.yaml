@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/resident_counsellor/list"
+method: GET
+order: 1000

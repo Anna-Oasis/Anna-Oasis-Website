@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/resident_counsellor/summer_vacation/2"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"approve\" : true\r
+
+    \    // \"comment\" : \"thappu\"  // compulsary when declining a form\r
+
+    }"
+order: 2000

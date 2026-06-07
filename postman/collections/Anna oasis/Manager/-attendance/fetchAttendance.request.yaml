@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/manager/attendance?date=2025-03-21"
+method: GET
+queryParams:
+  date: 2025-03-21
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwIiwicm9sZSI6Im1hbmFnZXIiLCJpYXQiOjE3NTcwNzYyNDQsImV4cCI6MTc1OTY2ODI0NH0.AE9GoCd5lRt9CQlnADB9Cygn04joEmj8DOlD_mhqDBk
+order: 1000

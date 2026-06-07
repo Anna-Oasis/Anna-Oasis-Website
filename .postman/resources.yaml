@@ -1,0 +1,13 @@
+# Use this workspace to collaborate
+workspace:
+  id: 3c5df576-1244-48ad-8435-96185c07a7d2
+
+localResources:
+  docs:
+    - ../README.md
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/Anna oasis: cca323eb-e421-4bab-8051-1a9affef6c4e

@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/deputy_warden/rc/leave/1"
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+        "status" : "true"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{DEPUTYWARDEN_TOKEN}}"
+order: 2000

@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/deputy_warden/grievance"
+method: GET
+body:
+  type: file
+  content: {}
+auth:
+  type: bearer
+  credentials:
+    token: "{{DEPUTYWARDEN_TOKEN}}"
+order: 1000

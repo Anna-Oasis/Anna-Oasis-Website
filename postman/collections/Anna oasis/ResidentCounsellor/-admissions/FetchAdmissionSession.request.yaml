@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/resident_counsellor/admissions/session"
+method: GET
+order: 4000

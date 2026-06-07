@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/student/admission/student/:roll_number"
+method: GET
+pathVariables:
+  roll_number: "2022115081"
+order: 1000

@@ -1,0 +1,13 @@
+$kind: http-request
+url: http://localhost:5000/api/resident_counsellor/grievance/:grievanceId
+method: PUT
+pathVariables:
+  grievanceId: "1"
+body:
+  type: json
+  content: "{\r\n  \"approve\": true\r\n}\r\n"
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJyb2xlIjoicmMiLCJpYXQiOjE3NTEwOTg3MDAsImV4cCI6MTc1MzY5MDcwMH0.WrUyNVIFvqXBooS3WOei-ZzELDDODprkDMauzgAA8_g
+order: 2000

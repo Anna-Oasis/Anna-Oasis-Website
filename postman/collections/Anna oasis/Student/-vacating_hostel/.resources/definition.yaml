@@ -1,0 +1,9 @@
+$kind: collection
+name: /vacating_hostel
+auth:
+  - id: 6b196ca1-cef1-447d-9186-dd89a53b27a3
+    type: bearer
+    name: bearer auth
+    credentials:
+      token: "{{STUDENT_TOKEN}}"
+order: 6000

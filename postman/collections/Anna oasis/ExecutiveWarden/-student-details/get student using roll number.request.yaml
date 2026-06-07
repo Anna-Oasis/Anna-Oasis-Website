@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/executive_warden/student/details/:rollNo"
+method: GET
+pathVariables:
+  rollNo: "2022115081"
+auth:
+  type: bearer
+  credentials:
+    token: "{{EXECUTIVE_WARDEN}}"
+order: 1000

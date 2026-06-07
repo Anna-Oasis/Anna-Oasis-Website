@@ -15,6 +15,7 @@ import DeleteAccountPage from "@/pages/DeleteAccount";
 import MainLayout from "./components/MainLayout";
 import Landing from "./pages/landing";
 import { Toaster } from "sonner";
+import ExecutiveWarden from "./pages/ExecutiveWarden/ExecutiveWarden";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           path="/admissionForm"
           element={<ProtectedRoute element={<MainLayout><Addmission /></MainLayout>} roles={["student"]} />}
         />
+        <Route path="/ExecutiveWarden" element={<ProtectedRoute element={<MainLayout><ExecutiveWarden/></MainLayout>} roles={["executiveWarden"]} />}/>
         <Route
           path="/RC/RoomAllocation"
           element={<ProtectedRoute element={<MainLayout><RoomAllocationPage /></MainLayout>} roles={["rc"]} />}

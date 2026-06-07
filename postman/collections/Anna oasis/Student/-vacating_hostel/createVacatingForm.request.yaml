@@ -1,0 +1,45 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/student/vacating_hostel"
+method: POST
+body:
+  type: json
+  content: " //deductions and refund_amount are stored 0 temporarily in db for every request\r
+
+    {\r
+
+    \  \"vacatingForm\": {\r
+
+    \    \"roll_number\": \"2025115003\",\r
+
+    \    \"vacating_date\": \"2025-06-20\",\r
+
+    \    \"vacating_time\": \"11:30:00\",\r
+
+    \    \"future_address\": \"1234, New Avenue, Bangalore\",\r
+
+    \    \"returned_items\": [\"ID Card\", \"Library Books\", \"Room Key\"],\r
+
+    \    \"endeavour\": \"INTERNSHIP\",\r
+
+    \    \"endeavourDescription\": \"Summer internship at XYZ Corp\",\r
+
+    \    \"feedback\": \"The hostel experience was good.\"\r
+
+    \  },\r
+
+    \  \"cautionDeposit\": {\r
+
+    \    \"accountHolderName\": \"John\",\r
+
+    \    \"accountNumber\": \"1234567890\",\r
+
+    \    \"bankName\": \"SBI\",\r
+
+    \    \"addressOfTheBank\": \"MG Road, Bangalore\",\r
+
+    \    \"IFSCode\": \"SBIN0001234\"\r
+
+    \  }\r
+
+    }\r\n"
+order: 2000

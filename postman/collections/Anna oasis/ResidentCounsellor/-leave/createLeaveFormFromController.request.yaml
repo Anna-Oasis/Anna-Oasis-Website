@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/resident_counsellor/leave"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "rc_id" : 1,
+        "arrival" : "2025-01-03",
+        "leaving" : "2025-01-03",
+        "reason" : "test",
+        "alternate" : 2
+    }
+order: 2000

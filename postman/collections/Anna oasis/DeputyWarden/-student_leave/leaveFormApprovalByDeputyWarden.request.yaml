@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{BASE_URL}}/api/deputy_warden/student_leave/:leaveFormId"
+method: PUT
+pathVariables:
+  leaveFormId: "1"
+body:
+  type: json
+  content: "{\r
+
+    \  \"approve\": true,\r
+
+    \  \"comment\": \"Approved by RC\"\r
+
+    }"
+order: 2000
