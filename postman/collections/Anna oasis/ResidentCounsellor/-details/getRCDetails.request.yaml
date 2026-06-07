@@ -1,7 +1,0 @@
-$kind: http-request
-url: "{{BASE_URL}}/api/resident_counsellor/details"
-method: GET
-body:
-  type: text
-  content: ""
-order: 1000

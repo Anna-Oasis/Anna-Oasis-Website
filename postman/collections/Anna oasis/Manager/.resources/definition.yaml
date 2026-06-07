@@ -1,8 +1,0 @@
-$kind: collection
-auth:
-  - id: 7986019b-33aa-47f3-a86c-ccfc01555714
-    type: bearer
-    name: bearer auth
-    credentials:
-      token: "{{MANAGER_TOKEN}} "
-order: 4000

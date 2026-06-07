@@ -1,4 +1,0 @@
-$kind: http-request
-url: "{{BASE_URL}}/api/deputy_warden/admissions"
-method: GET
-order: 4000

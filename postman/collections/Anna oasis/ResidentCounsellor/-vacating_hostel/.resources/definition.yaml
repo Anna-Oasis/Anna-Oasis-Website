@@ -1,9 +1,0 @@
-$kind: collection
-name: /vacating_hostel
-auth:
-  - id: 04774d95-9b4c-472e-be22-3039f466053c
-    type: bearer
-    name: bearer auth
-    credentials:
-      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJyb2xlIjoicmMiLCJpYXQiOjE3NTE1MjE4MzQsImV4cCI6MTc1NDExMzgzNH0.d_Nn4rfYyzmbZqraeheaFk3sq8mfHCvM474dYGk7mOA
-order: 3000

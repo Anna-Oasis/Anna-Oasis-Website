@@ -1,4 +1,0 @@
-$kind: http-request
-url: "{{ManagerRoute}}/admissions"
-method: GET
-order: 2000

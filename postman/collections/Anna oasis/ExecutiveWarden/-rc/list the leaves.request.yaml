@@ -1,8 +1,0 @@
-$kind: http-request
-url: "{{BASE_URL}}/api/executive_warden/rc/leave"
-method: GET
-auth:
-  type: bearer
-  credentials:
-    token: "{{WARDEN_TOKEN}}"
-order: 2000

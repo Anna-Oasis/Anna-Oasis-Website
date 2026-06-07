@@ -1,8 +1,0 @@
-$kind: http-request
-url: "{{BASE_URL}}/api/executive_warden/rooms/2025-2026"
-method: GET
-auth:
-  type: bearer
-  credentials:
-    token: "{{EXECUTIVE_WARDEN}}"
-order: 1000

@@ -1,8 +1,0 @@
-$kind: http-request
-url: "{{BASE_URL}}/api/resident_counsellor/leave"
-method: GET
-auth:
-  type: bearer
-  credentials:
-    token: "{{RC_TOKEN}}"
-order: 3000

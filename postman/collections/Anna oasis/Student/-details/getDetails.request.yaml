@@ -1,8 +1,0 @@
-$kind: http-request
-url: "{{BASE_URL}}/api/student/details/"
-method: GET
-auth:
-  type: bearer
-  credentials:
-    token: "{{STUDENT_TOKEN}}"
-order: 1000

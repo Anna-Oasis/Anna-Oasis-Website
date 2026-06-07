@@ -1,8 +1,0 @@
-$kind: collection
-auth:
-  - id: 2063bdae-df51-4718-a90b-beae493fff20
-    type: bearer
-    name: bearer auth
-    credentials:
-      token: "{{DEPUTYWARDEN_TOKEN}}"
-order: 3000

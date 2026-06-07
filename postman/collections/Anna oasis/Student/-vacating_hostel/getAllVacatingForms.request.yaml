@@ -1,4 +1,0 @@
-$kind: http-request
-url: "{{BASE_URL}}/api/student/vacating_hostel"
-method: GET
-order: 1000

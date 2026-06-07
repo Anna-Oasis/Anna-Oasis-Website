@@ -1,8 +1,0 @@
-$kind: http-request
-url: "{{BASE_URL}}/api/manager/rooms/2026-2027"
-method: GET
-auth:
-  type: bearer
-  credentials:
-    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwIiwicm9sZSI6Im1hbmFnZXIiLCJpYXQiOjE3NTI0OTQ4ODksImV4cCI6MTc1NTA4Njg4OX0.JcU7_hu2JHBB_YsXTThSlCG6HZ52Nzv57RhdT1iPh9M
-order: 1000

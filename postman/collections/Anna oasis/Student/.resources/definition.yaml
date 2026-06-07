@@ -1,8 +1,0 @@
-$kind: collection
-auth:
-  - id: 1372f3ba-d94d-4087-a6fd-f969e88642c7
-    type: bearer
-    name: bearer auth
-    credentials:
-      token: "{{STUDENT_TOKEN}}"
-order: 5000

@@ -1,8 +1,0 @@
-$kind: collection
-auth:
-  - id: 90730bc0-963c-4086-be9b-e5a9273b2e6c
-    type: bearer
-    name: bearer auth
-    credentials:
-      token: "{{RC_TOKEN}}"
-order: 2000
