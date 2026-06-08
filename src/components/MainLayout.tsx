@@ -2,8 +2,6 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import RoleBasedSidebar from "./RoleBasedSidebar";
 
 function MainContent({ children }: { children: React.ReactNode }) {
-  // We remove useSidebar and the manual style={{ marginLeft }}
-  // because SidebarProvider handles this automatically.
   return (
     <div className="flex-1 flex flex-col min-h-screen">
       <header className="flex h-16 shrink-0 items-center gap-2 px-4">

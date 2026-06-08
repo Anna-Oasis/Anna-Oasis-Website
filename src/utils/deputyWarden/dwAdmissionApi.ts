@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "@/api";
-// import { getToken } from "../authUtils";
+import { getToken } from "@/utils/auth/authUtil";
 
 export async function getAllDWAdmissions() {
   try {
-    // const token = await getToken();
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwIiwicm9sZSI6ImRlcHV0eVdhcmRlbiIsImlhdCI6MTc1MDk0ODg5MCwiZXhwIjoxNzUzNTQwODkwfQ.58LMVxeI7F6NDLR_IMjvQMvx4O1MkuhcooJkX5nW69I'
+    const token = await getToken();
     if (!token) {
       throw new Error("User is not authenticated");
     }
@@ -28,8 +28,7 @@ export async function handleUpdateAdmission(
   { comment, approve }: { comment: string; approve: boolean }
 ) {
   try {
-    // const token = await getToken();
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwIiwicm9sZSI6ImRlcHV0eVdhcmRlbiIsImlhdCI6MTc1MDk0ODg5MCwiZXhwIjoxNzUzNTQwODkwfQ.58LMVxeI7F6NDLR_IMjvQMvx4O1MkuhcooJkX5nW69I'
+    const token = await getToken();
     if (!token) {
       throw new Error("User is not authenticated");
     }
