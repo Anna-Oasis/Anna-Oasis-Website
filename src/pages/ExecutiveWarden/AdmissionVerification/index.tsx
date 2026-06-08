@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // Swapped out expo-router
-import { Inbox } from "lucide-react"; // Swapped out lucide-react-native
+
 import {
   getAllEWAdmissions,
   handleUpdateEWAdmission,
@@ -94,8 +94,7 @@ export default function AdmissionVerificationPage() {
             <EmptyPage
               title="No pending admissions"
               description=""
-              icon={Inbox}
-            />
+              />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {roomAllocAdmissions.map((item: any, idx: number) => (
@@ -119,7 +118,6 @@ export default function AdmissionVerificationPage() {
           <EmptyPage
             title="No pending admissions"
             description=""
-            icon={Inbox}
           />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

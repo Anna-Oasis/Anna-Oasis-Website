@@ -35,10 +35,13 @@ function TabSwitch<T extends string>({
             }`}
           >
             {IconComponent && (
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               <IconComponent
-                className={`w-5 h-5 mb-1 transition-colors ${
-                  isActive ? "text-[#022B60]" : "text-gray-400"
-                }`}
+                {...({
+                  className: `w-5 h-5 mb-1 transition-colors ${
+                    isActive ? "text-[#022B60]" : "text-gray-400"
+                  }`,
+                } as any)}
               />
             )}
             <span className="text-lg font-semibold tracking-wide">

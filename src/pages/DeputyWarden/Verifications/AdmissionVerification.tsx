@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { getAllDWAdmissions, handleUpdateAdmission } from "../../../utils/deputyWarden/dwAdmissionApi";
 import ApprovalCard from "@/components/approvalCard";

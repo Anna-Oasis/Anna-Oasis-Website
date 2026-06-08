@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Inbox, Loader2 } from "lucide-react"; // Swapped out lucide-react-native
+import { Loader2 } from "lucide-react";
 import {
   getRCLeavebyEw,
   updateRCLeaveStatusByEw,
@@ -169,7 +169,6 @@ export default function RcLeavePage() {
           <EmptyPage
             title="No RC Leave requests found."
             description="All incoming Resident Counselor leaves are completely cleared up!"
-            icon={Inbox}
           />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
