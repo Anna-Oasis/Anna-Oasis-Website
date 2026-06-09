@@ -1,7 +1,19 @@
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 
+
 import Addmission from "./pages/addmission";
+import RCDashboard from "./pages/RC/Dashboard";
+import RCDetailsPage from "./pages/RC/Details";
+import RCDetailsEditPage from "./pages/RC/Details/Edit";
+import RCStudentsPage from "./pages/RC/Students";
+import RCLeaveFormApprovalPage from "./pages/RC/StudentVerification/LeaveForm";
+import RCGrievanceApprovalPage from "./pages/RC/StudentVerification/Grievances";
+import RCSummerVacationApprovalPage from "./pages/RC/StudentVerification/SummerVacation";
+import RCVacatingHostelApprovalPage from "./pages/RC/StudentVerification/VacatingHostel";
+import RCRoomsPage from "./pages/RC/Rooms";
+import RCAttendancePage from "./pages/RC/Attendance";
+import RCApplyForLeavePage from "./pages/RC/ApplyForLeave";
 import RoomAllocationPage from "./pages/RC/RoomAllocation/allocation";
 import ApprovePage from "./pages/RC/RoomAllocation/approve/approve";
 import ManagerPaymentVerificationsPage from "./pages/Manager/paymentVerification";
@@ -32,7 +44,10 @@ import EWRcLeavePage from "./pages/ExecutiveWarden/RcLeave/index.tsx";
 import EWRCManagementPage from "./pages/ExecutiveWarden/RCManagement/index.tsx";
 import EWRoomsPage from "./pages/ExecutiveWarden/Rooms/index.tsx";
 
+
+
 import Login from "./pages/auth/Login";
+
 import SIgnup from "./pages/auth/SIgnup";
 
 import AdmissionForm from "./pages/Student/admission";
