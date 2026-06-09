@@ -25,6 +25,7 @@ const studentLinks = [
 ];
 
 const managerLinks = [
+  { label: "Dashboard", path: "/Manager" },
   { label: "Payment Verification", path: "/Manager/PaymentVerifications" },
   { label: "Caution Deposit", path: "/Manager/CautionDeposit" },
   { label: "Grievances", path: "/Manager/Grievances" },
@@ -45,6 +46,7 @@ const deputyWardenLinks = [
 ];
 
 const executiveWardenLinks = [
+  { label: "Dashboard", path: "/ExecutiveWarden" },
   { label: "Admission Session", path: "/ExecutiveWarden/admission-session" },
   {
     label: "Admission Verification",
