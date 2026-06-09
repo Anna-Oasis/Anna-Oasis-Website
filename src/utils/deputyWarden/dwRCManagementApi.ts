@@ -11,10 +11,6 @@ export async function fetchAllRCs() {
     },
   });
 
-  console.log("========== RC DATA ==========");
-  console.log(JSON.stringify(res.data, null, 2));
-  console.log("=============================");
-
   return res.data.data;
 }
 
