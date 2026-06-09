@@ -14,27 +14,35 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import {
-  getToken,
-  verifyToken,
-  removeToken,
-} from "@/utils/auth/authUtil";
+import { getToken, verifyToken, removeToken } from "@/utils/auth/authUtil";
 
 import LogoutModal from "@/components/LogoutModal";
 import useUserStore from "@/stores/userStore";
 
 const studentLinks = [
-  { label: "Admission", path: "/User/Student/admission" },
-  { label: "Details", path: "/User/Student/details" },
+  {
+    label: "Admission",
+    path: "/User/Student/admission",
+  },
+  {
+    label: "Details",
+    path: "/User/Student/details",
+  },
+  {
+    label: "Hostel Vacation",
+    path: "/User/Student/HostelVacation",
+  },
+  {
+    label: "Grievances",
+    path: "/User/Student/Grievances",
+  },
 ];
 
 const managerLinks = [
   { label: "Payment Verification", path: "/Manager/PaymentVerfication" },
 ];
 
-const rcLinks = [
-  { label: "Room Allocation", path: "/RC/RoomAllocation" },
-];
+const rcLinks = [{ label: "Room Allocation", path: "/RC/RoomAllocation" }];
 
 const deputyWardenLinks = [
   { label: "Dashboard", path: "/DeputyWarden" },

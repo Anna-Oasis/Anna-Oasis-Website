@@ -38,6 +38,8 @@ import SIgnup from "./pages/auth/SIgnup";
 import AdmissionForm from "./pages/Student/admission";
 import DetailsPage from "./pages/Student/details";
 import DetailsEditPage from "./pages/Student/detailsedit";
+import GrievancesPage from "./pages/Student/Grievances";
+import HostelVacationPage from "./pages/Student/HostelVacation";
 
 import DeleteAccountPage from "@/pages/DeleteAccount";
 import EmptyPage from "./components/EmptyPage";
@@ -102,6 +104,34 @@ function App() {
                 element={
                   <MainLayout>
                     <DetailsEditPage />
+                  </MainLayout>
+                }
+                roles={["student"]}
+              />
+            }
+          />
+
+          <Route
+            path="/User/Student/Grievances"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <GrievancesPage />
+                  </MainLayout>
+                }
+                roles={["student"]}
+              />
+            }
+          />
+
+          <Route
+            path="/User/Student/HostelVacation"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <HostelVacationPage />
                   </MainLayout>
                 }
                 roles={["student"]}
@@ -394,15 +424,11 @@ function App() {
           {/* ================= FALLBACK ROUTES ================= */}
           <Route
             path="/404"
-            element={
-              <EmptyPage title="404" description="page not found" />
-            }
+            element={<EmptyPage title="404" description="page not found" />}
           />
           <Route
             path="*"
-            element={
-              <EmptyPage title="404" description="page not found" />
-            }
+            element={<EmptyPage title="404" description="page not found" />}
           />
         </Routes>
       </BrowserRouter>
