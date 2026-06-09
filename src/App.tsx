@@ -125,33 +125,189 @@ function App() {
           />
 
           {/* ================= RC ROUTES ================= */}
-          <Route
-            path="/RC/RoomAllocation"
-            element={
-              <ProtectedRoute
-                element={
-                  <MainLayout>
-                    <RoomAllocationPage />
-                  </MainLayout>
-                }
-                roles={["rc"]}
-              />
-            }
-          />
-          <Route
-            path="/RC/RoomAllocation/Approve/:id"
-            element={
-              <ProtectedRoute
-                element={
-                  <MainLayout>
-                    <ApprovePage />
-                  </MainLayout>
-                }
-                roles={["rc"]}
-              />
-            }
-          />
+          {/* ================= RC ROUTES ================= */}
 
+<Route
+  path="/RC"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCDashboard />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/Details"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCDetailsPage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/Details/Edit"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCDetailsEditPage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/Students"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCStudentsPage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/StudentVerification/LeaveForm"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCLeaveFormApprovalPage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/StudentVerification/Grievances"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCGrievanceApprovalPage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/StudentVerification/SummerVacation"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCSummerVacationApprovalPage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/StudentVerification/VacatingHostel"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCVacatingHostelApprovalPage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/Rooms"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCRoomsPage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/Attendance"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCAttendancePage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/ApplyForLeave"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RCApplyForLeavePage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/RoomAllocation"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <RoomAllocationPage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
+
+<Route
+  path="/RC/RoomAllocation/Approve/:id"
+  element={
+    <ProtectedRoute
+      element={
+        <MainLayout>
+          <ApprovePage />
+        </MainLayout>
+      }
+      roles={["rc"]}
+    />
+  }
+/>
           {/* ================= MANAGER ROUTES ================= */}
           <Route
             path="/Manager/PaymentVerfication"
