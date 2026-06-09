@@ -1,10 +1,16 @@
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
+import { Navigate } from "react-router-dom";
 
 import Addmission from "./pages/addmission";
 import RoomAllocationPage from "./pages/RC/RoomAllocation/allocation";
 import ApprovePage from "./pages/RC/RoomAllocation/approve/approve";
-import ManagerPaymentVerificationsPage from "./pages/Manager/paymentVerification";
+
+//Manager
+import PaymentVerificationsPage from "./pages/Manager/PaymentVerifications";
+import CautionDepositPage from "./pages/Manager/CautionDeposit";
+import ManagerGrievancesPage from "./pages/Manager/Grievances";
+import ProfileVerificationsPage from "./pages/Manager/ProfileVerifications";
 
 // Deputy Warden
 import DeputyWardenDashboard from "./pages/DeputyWarden";
@@ -138,13 +144,68 @@ function App() {
           />
 
           {/* ================= MANAGER ROUTES ================= */}
+          {/* Auto-redirect root manager route directly to payment verifications */}
           <Route
-            path="/Manager/PaymentVerfication"
+            path="/Manager"
+            element={
+              <ProtectedRoute
+                element={
+                  <Navigate to="/Manager/PaymentVerifications" replace />
+                }
+                roles={["manager"]}
+              />
+            }
+          />
+
+          <Route
+            path="/Manager/PaymentVerifications"
             element={
               <ProtectedRoute
                 element={
                   <MainLayout>
-                    <ManagerPaymentVerificationsPage />
+                    <PaymentVerificationsPage />
+                  </MainLayout>
+                }
+                roles={["manager"]}
+              />
+            }
+          />
+
+          <Route
+            path="/Manager/CautionDeposit"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <CautionDepositPage />
+                  </MainLayout>
+                }
+                roles={["manager"]}
+              />
+            }
+          />
+
+          <Route
+            path="/Manager/Grievances"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <ManagerGrievancesPage />
+                  </MainLayout>
+                }
+                roles={["manager"]}
+              />
+            }
+          />
+
+          <Route
+            path="/Manager/ProfileVerifications"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <ProfileVerificationsPage />
                   </MainLayout>
                 }
                 roles={["manager"]}
@@ -394,15 +455,11 @@ function App() {
           {/* ================= FALLBACK ROUTES ================= */}
           <Route
             path="/404"
-            element={
-              <EmptyPage title="404" description="page not found" />
-            }
+            element={<EmptyPage title="404" description="page not found" />}
           />
           <Route
             path="*"
-            element={
-              <EmptyPage title="404" description="page not found" />
-            }
+            element={<EmptyPage title="404" description="page not found" />}
           />
         </Routes>
       </BrowserRouter>

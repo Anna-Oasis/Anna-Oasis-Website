@@ -1,10 +1,10 @@
 import api from "@/api";
-// import { getToken } from "../authUtils";
+import { getToken } from "@/utils/auth/authUtil";
+import { toast } from "sonner";
 
 export async function getAllManagerAdmissions() {
   try {
-    // const token = await getToken();
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExIiwicm9sZSI6Im1hbmFnZXIiLCJpYXQiOjE3NTA5NDA2NzAsImV4cCI6MTc1MzUzMjY3MH0.9C48hTtv94Ip9gn-fJJhsRE5gPBNlufZGm7CvMT6DAs'
+    const token = await getToken();
     if (!token) {
       throw new Error("User is not authenticated");
     }
@@ -15,9 +15,9 @@ export async function getAllManagerAdmissions() {
     });
     return response.data.data;
   } catch (error: any) {
-    window.alert(
+    toast.error(
       error.response?.data?.message ||
-        "An error occurred while fetching admissions"
+        "An error occurred while fetching admissions",
     );
     throw error;
   }
@@ -25,8 +25,7 @@ export async function getAllManagerAdmissions() {
 
 export async function managerApprove(admissionId: string) {
   try {
-    // const token = await getToken();
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExIiwicm9sZSI6Im1hbmFnZXIiLCJpYXQiOjE3NTA5NDA2NzAsImV4cCI6MTc1MzUzMjY3MH0.9C48hTtv94Ip9gn-fJJhsRE5gPBNlufZGm7CvMT6DAs'
+    const token = await getToken();
     if (!token) {
       throw new Error("User is not authenticated");
     }
@@ -40,14 +39,14 @@ export async function managerApprove(admissionId: string) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
-    window.alert("Admission approved successfully");
+    toast.success("Admission approved successfully");
     return response.data;
   } catch (error: any) {
-    window.alert(
+    toast.error(
       error.response?.data?.message ||
-        "An error occurred while approving the admission"
+        "An error occurred while approving the admission",
     );
     throw error;
   }
@@ -55,8 +54,7 @@ export async function managerApprove(admissionId: string) {
 
 export async function managerDecline(admissionId: string, comment: string) {
   try {
-    // const token = await getToken();
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExIiwicm9sZSI6Im1hbmFnZXIiLCJpYXQiOjE3NTA5NDA2NzAsImV4cCI6MTc1MzUzMjY3MH0.9C48hTtv94Ip9gn-fJJhsRE5gPBNlufZGm7CvMT6DAs'
+    const token = await getToken();
     if (!token) {
       throw new Error("User is not authenticated");
     }
@@ -70,14 +68,14 @@ export async function managerDecline(admissionId: string, comment: string) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
-    window.alert("Admission declined successfully");
+    toast.success("Admission declined successfully");
     return response.data;
   } catch (error: any) {
-    window.alert(
+    toast.error(
       error.response?.data?.message ||
-        "An error occurred while declining the admission"
+        "An error occurred while declining the admission",
     );
     throw error;
   }
