@@ -1,23 +1,14 @@
+import { normalizeGrievanceStatus } from "@/utils/deputyWarden/grievanceStatusUtils";
+
 interface GrievanceCardProps {
   subject: string;
-  status: string;
+  status: string | number;
   rollNo: string;
   onView: () => void;
 }
 
-const getStatusStyle = (status: string) => {
-  const s = status?.toUpperCase().trim();
-  if (s === "APPROVED" || s === "MANAGER") {
-    return { label: "APPROVED", className: "bg-green-500 text-white" };
-  }
-  if (s === "DECLINED" || s === "REJECTED") {
-    return { label: "DECLINED", className: "bg-red-500 text-white" };
-  }
-  return { label: "PENDING", className: "bg-[#022B60] text-white" };
-};
-
 const GrievanceCard = ({ subject, status, rollNo, onView }: GrievanceCardProps) => {
-  const { label, className } = getStatusStyle(status);
+  const { label, className } = normalizeGrievanceStatus(status);
 
   return (
     <div className="rounded-2xl bg-white p-5 shadow-sm">
