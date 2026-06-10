@@ -15,6 +15,8 @@ import DeleteAccountPage from "@/pages/DeleteAccount";
 import MainLayout from "./components/MainLayout";
 import Landing from "./pages/landing";
 import { Toaster } from "sonner";
+import LeaveFormPage from "./pages/Student/leaveform";
+import SummerVacationPage from "./pages/Student/summerVacation";
 
 function App() {
   return (
@@ -81,7 +83,33 @@ function App() {
             />
           }
         />
-  <Route path="/DeleteAccount" element={<DeleteAccountPage />} />
+        <Route
+          path="/User/Student/leave"
+          element={
+            <ProtectedRoute
+              element={
+                <MainLayout>
+                  <LeaveFormPage />
+                </MainLayout>
+              }
+              roles={["student"]}
+            />
+          }
+        />
+        <Route
+          path="/User/Student/summer-vacation"
+          element={
+            <ProtectedRoute
+              element={
+                <MainLayout>
+                  <SummerVacationPage />
+                </MainLayout>
+              }
+              roles={["student"]}
+            />
+          }
+        />
+        <Route path="/DeleteAccount" element={<DeleteAccountPage />} />
         <Route path="/404" element={<EmptyPage title="404" description="page not found" />} />
         <Route path="*" element= {<EmptyPage title="404" description="page not found" />} />
       </Routes>

@@ -19,6 +19,11 @@ import useUserStore from "@/stores/userStore";
 const studentLinks = [
   { label: "Admission", path: "/User/Student/admission" },
   { label: "Details", path: "/User/Student/details" },
+  { label: "Leave", path: "/User/Student/leave" },
+  {
+    label: "Summer Vacation",
+    path: "/User/Student/summer-vacation",
+  },
 ];
 const managerLinks = [
   { label: "Payment Verification", path: "/Manager/PaymentVerfication" },

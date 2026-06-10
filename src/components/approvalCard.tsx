@@ -9,6 +9,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { DialogDescription } from "@/components/ui/dialog";
 
 export const badgeStatus = {
   Pending: 'pending',
@@ -91,6 +92,9 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
             <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-lg">
               <DialogHeader>
                 <DialogTitle className="text-2xl">Details</DialogTitle>
+                <DialogDescription>
+                  View complete request information.
+                </DialogDescription>
               </DialogHeader>
 
               <div className="mt-4 space-y-3">
