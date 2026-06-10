@@ -1,62 +1,26 @@
-import api from "@/api";
-// import { getToken } from "../authUtils";
+﻿import { axios_api as api } from "@/utils/api";
+import { getToken } from "@/utils/auth/authUtil";
 
-// Define types for Admission and Room if you know the structure
-// Here's a generic fallback:
-export type RCAdmission = Record<string, any>;
-export type Room = Record<string, any>;
+export type RCAdmission = {
+  admission: Record<string, any>;
+  student: Record<string, any>;
+};
 
-export async function getAllRCAdmissions(): Promise<RCAdmission[]> {
-  try {
-    // const token = await getToken();
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4Iiwicm9sZSI6InJjIiwiaWF0IjoxNzUwOTM4MzUwLCJleHAiOjE3NTM1MzAzNTB9.Ll5tZY2oKkt4-CPlqXJQ8GFbNZl-rgls8XJyScby7SA';
-    if (!token) {
-      throw new Error("User is not authenticated");
-    }
+export type Room = {
+  roomNumber: number;
+  hostelBlock: string;
+  academicYear: string;
+  floor: number;
+  rollNo?: string[] | null;
+};
 
-    const response = await api.get<{ data: RCAdmission[] }>("/api/resident_counsellor/admissions/", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log(response.data.data)
-    return response.data.data;
-  } catch (error: any) {
-    window.alert(
-      error.response?.data?.message ||
-        "An error occurred while fetching admissions"
-    );
-    throw error;
-  }
-}
-
-export async function getAllRooms(): Promise<Room[]> {
-  const academicYear = "2025-2026";
-  try {
-    // const token = await getToken();
-    const token = '';
-    if (!token) {
-      throw new Error("User is not authenticated");
-    }
-
-    const response = await api.get<{ data: Room[] }>(
-      `/api/resident_counsellor/rooms/${academicYear}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    return response.data.data;
-  } catch (error: any) {
-    window.alert(
-      error.response?.data?.message ||
-        "An error occurred while fetching rooms"
-    );
-    throw error;
-  }
-}
+export type AdmissionSession = {
+  id: number;
+  from: string;
+  to: string;
+  semesters: number[];
+  academic_year: string;
+};
 
 export type AllocateRoomPayload = {
   approve: boolean;
@@ -66,27 +30,36 @@ export type AllocateRoomPayload = {
   hostel_block: string;
 };
 
-export async function allocateRoomAdmission(
-  admissionId: string,
-  updateData: AllocateRoomPayload
-): Promise<RCAdmission> {
-//   const token = await getToken();
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4Iiwicm9sZSI6InJjIiwiaWF0IjoxNzUwOTM4MzUwLCJleHAiOjE3NTM1MzAzNTB9.Ll5tZY2oKkt4-CPlqXJQ8GFbNZl-rgls8XJyScby7SA';
-  if (!token) {
-    throw new Error("User is not authenticated");
-  }
+const authHeaders = async () => {
+  const token = await getToken();
+  if (!token) throw new Error("User is not authenticated");
+  return { Authorization: `Bearer ${token}` };
+};
 
-  console.log("Allocating room for admission:", admissionId, updateData);
+export async function getAllRCAdmissions(): Promise<RCAdmission[]> {
+  const response = await api.get("/api/resident_counsellor/admissions/", {
+    headers: await authHeaders(),
+  });
+  return response.data?.data ?? [];
+}
 
-  const response = await api.put<{ data: RCAdmission }>(
-    `/api/resident_counsellor/admissions/${admissionId}`,
-    updateData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+export async function getAdmissionSessions(): Promise<AdmissionSession[]> {
+  const response = await api.get("/api/resident_counsellor/admissions/session", {
+    headers: await authHeaders(),
+  });
+  return response.data?.data ?? [];
+}
 
-  return response.data.data;
+export async function getAllRooms(academicYear: string): Promise<Room[]> {
+  const response = await api.get(`/api/resident_counsellor/rooms/${academicYear}`, {
+    headers: await authHeaders(),
+  });
+  return response.data?.data ?? [];
+}
+
+export async function allocateRoomAdmission(admissionId: string, updateData: AllocateRoomPayload) {
+  const response = await api.put(`/api/resident_counsellor/admissions/room/${admissionId}`, updateData, {
+    headers: await authHeaders(),
+  });
+  return response.data;
 }
