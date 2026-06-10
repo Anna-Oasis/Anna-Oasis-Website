@@ -3,13 +3,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { getRoomsByAcademicYear } from "@/utils/deputyWarden/dwRoomApi";
 
-const ACADEMIC_YEARS = [
-  "2022-2023",
-  "2023-2024",
-  "2024-2025",
-  "2025-2026",
-  "2026-2027",
-];
+const ACADEMIC_YEARS = ["2025-2026", "2026-2027"];
 
 type RoomMap = Map<string | number, string[]>;
 type FloorMap = Map<string | number, RoomMap>;
