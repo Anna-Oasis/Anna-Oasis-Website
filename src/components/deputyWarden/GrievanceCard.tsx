@@ -6,9 +6,12 @@ interface GrievanceCardProps {
 }
 
 const getStatusStyle = (status: string) => {
-  const s = status?.toUpperCase();
-  if (s === "MANAGER" || s === "APPROVED") {
+  const s = status?.toUpperCase().trim();
+  if (s === "APPROVED" || s === "MANAGER") {
     return { label: "APPROVED", className: "bg-green-500 text-white" };
+  }
+  if (s === "DECLINED" || s === "REJECTED") {
+    return { label: "DECLINED", className: "bg-red-500 text-white" };
   }
   return { label: "PENDING", className: "bg-[#022B60] text-white" };
 };
