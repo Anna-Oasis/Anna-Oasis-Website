@@ -6,12 +6,11 @@ import Addmission from "./pages/addmission";
 import RCDashboard from "./pages/RC/Dashboard";
 import RCDetailsPage from "./pages/RC/Details";
 import RCDetailsEditPage from "./pages/RC/Details/Edit";
-import RCStudentsPage from "./pages/RC/Students";
+import RCStudentVerificationPage from "./pages/RC/StudentVerification";
 import RCLeaveFormApprovalPage from "./pages/RC/StudentVerification/LeaveForm";
 import RCGrievanceApprovalPage from "./pages/RC/StudentVerification/Grievances";
 import RCSummerVacationApprovalPage from "./pages/RC/StudentVerification/SummerVacation";
 import RCVacatingHostelApprovalPage from "./pages/RC/StudentVerification/VacatingHostel";
-import RCRoomsPage from "./pages/RC/Rooms";
 import RCAttendancePage from "./pages/RC/Attendance";
 import RCApplyForLeavePage from "./pages/RC/ApplyForLeave";
 import RoomAllocationPage from "./pages/RC/RoomAllocation/allocation";
@@ -170,12 +169,12 @@ function App() {
 />
 
 <Route
-  path="/RC/Students"
+  path="/RC/StudentVerification"
   element={
     <ProtectedRoute
       element={
         <MainLayout>
-          <RCStudentsPage />
+          <RCStudentVerificationPage />
         </MainLayout>
       }
       roles={["rc"]}
@@ -232,20 +231,6 @@ function App() {
       element={
         <MainLayout>
           <RCVacatingHostelApprovalPage />
-        </MainLayout>
-      }
-      roles={["rc"]}
-    />
-  }
-/>
-
-<Route
-  path="/RC/Rooms"
-  element={
-    <ProtectedRoute
-      element={
-        <MainLayout>
-          <RCRoomsPage />
         </MainLayout>
       }
       roles={["rc"]}
@@ -584,3 +569,7 @@ function App() {
 }
 
 export default App;
+
+
+
+

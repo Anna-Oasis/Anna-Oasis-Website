@@ -1,12 +1,22 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import EmptyPage from "@/components/EmptyPage";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { getAllRCStudentsForAttendance, getAttendanceHistory, submitRCAttendance, type AttendanceRecord } from "@/utils/RC/rcAttendanceApi";
-import type { RCStudent } from "@/utils/RC/rcStudentsApi";
+import { getAllRCStudentsForAttendance, getAttendanceHistory, submitRCAttendance, type AttendanceRecord, type RCStudent } from "@/utils/RC/rcAttendanceApi";
+type ApiError = Error & {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+};
 
+const getErrorMessage = (error: unknown, fallback: string) => {
+  const apiError = error as ApiError;
+  return apiError.response?.data?.message || apiError.message || fallback;
+};
 export default function RCAttendancePage() {
   const [activeTab, setActiveTab] = useState<"submit" | "history">("submit");
   const [students, setStudents] = useState<RCStudent[]>([]);
@@ -25,8 +35,8 @@ export default function RCAttendancePage() {
       const firstFloor = studentData.find((student) => student.floor !== null && student.floor !== undefined)?.floor;
       if (firstFloor !== undefined && firstFloor !== null) setFloor(Number(firstFloor));
       setPresentRolls(new Set(studentData.map((student) => student.rollNo)));
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || error.message || "Failed to load attendance data");
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, "Failed to load attendance data"));
       setStudents([]);
       setHistory([]);
     } finally {
@@ -81,8 +91,8 @@ export default function RCAttendancePage() {
       const historyData = await getAttendanceHistory();
       setHistory(historyData);
       setActiveTab("history");
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || error.message || "Failed to submit attendance");
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, "Failed to submit attendance"));
     } finally {
       setSubmitting(false);
     }
@@ -166,3 +176,5 @@ export default function RCAttendancePage() {
     </div>
   );
 }
+
+

@@ -35,8 +35,7 @@ const managerLinks = [
 const rcLinks = [
   { label: "Dashboard", path: "/RC" },
   { label: "Room Allocation", path: "/RC/RoomAllocation" },
-  { label: "Room List", path: "/RC/Rooms" },
-  { label: "Students", path: "/RC/Students" },
+  { label: "Student Verification", path: "/RC/StudentVerification" },
   { label: "Leave Forms", path: "/RC/StudentVerification/LeaveForm" },
   { label: "Grievances", path: "/RC/StudentVerification/Grievances" },
   { label: "Summer Vacation", path: "/RC/StudentVerification/SummerVacation" },
@@ -193,3 +192,4 @@ export default function RoleBasedSidebar() {
     </>
   );
 }
+

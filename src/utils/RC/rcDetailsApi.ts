@@ -1,4 +1,4 @@
-﻿import { axios_api as api } from "@/utils/api";
+import { axios_api as api } from "@/utils/api";
 import { getToken } from "@/utils/auth/authUtil";
 
 export type RCDetails = {
@@ -15,6 +15,7 @@ export type RCDetails = {
   medicalHistory: string;
   passportPhotoUrl?: string;
   rcSignatureUrl?: string;
+  floor?: number[];
 };
 
 const authHeaders = async () => {
@@ -50,3 +51,4 @@ export async function updateRCDetails(formData: FormData) {
   });
   return response.data;
 }
+

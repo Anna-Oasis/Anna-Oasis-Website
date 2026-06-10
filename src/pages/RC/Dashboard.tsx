@@ -1,6 +1,6 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
-import { ClipboardList, HomeIcon, Loader2, User, UsersIcon } from "lucide-react";
+import { CalendarCheck, ClipboardList, HomeIcon, Loader2, User, UsersIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,8 +8,9 @@ import { getRCDetails, type RCDetails } from "@/utils/RC/rcDetailsApi";
 
 const cards = [
   { title: "Room Allocation", description: "Assign rooms for approved admissions.", path: "/RC/RoomAllocation", icon: HomeIcon },
-  { title: "Students", description: "View students mapped to your hostel and floors.", path: "/RC/Students", icon: UsersIcon },
-  { title: "Attendance", description: "Attendance module can be added next.", path: "/RC/Attendance", icon: ClipboardList, disabled: true },
+  { title: "Student Verification", description: "Review leave, grievance, vacation, and vacating requests.", path: "/RC/StudentVerification", icon: UsersIcon },
+  { title: "Attendance", description: "Mark floor-wise attendance and review submission history.", path: "/RC/Attendance", icon: ClipboardList },
+  { title: "Leave", description: "Apply for RC leave and review your leave history.", path: "/RC/ApplyForLeave", icon: CalendarCheck },
   { title: "Personal Details", description: "View or update your RC profile.", path: "/RC/Details", icon: User },
 ];
 
@@ -40,8 +41,8 @@ export default function RCDashboard() {
   }, [navigate]);
 
   const assignedFloors = useMemo(() => {
-    if (!details || !("floor" in details)) return "Not assigned";
-    const floors = (details as any).floor;
+    if (!details?.floor) return "Not assigned";
+    const floors = details.floor;
     return Array.isArray(floors) && floors.length ? floors.join(", ") : "Not assigned";
   }, [details]);
 
@@ -59,7 +60,7 @@ export default function RCDashboard() {
         <div>
           <p className="text-sm font-medium uppercase text-slate-500">Resident Counsellor</p>
           <h1 className="mt-1 text-3xl font-bold text-slate-900">{details?.name || "RC Dashboard"}</h1>
-          <p className="mt-2 text-slate-600">Manage room allocation and students from one web workspace.</p>
+          <p className="mt-2 text-slate-600">Manage room allocation, verification, attendance, and leave from one web workspace.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Dept: {details?.dept || "Not filled"}</Badge>
@@ -67,16 +68,15 @@ export default function RCDashboard() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         {cards.map((card) => {
           const Icon = card.icon;
           return (
             <button
               key={card.title}
               type="button"
-              disabled={card.disabled}
               onClick={() => navigate(card.path)}
-              className="rounded-lg border bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-lg border bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-[#022B60] text-white">
                 <Icon className="h-5 w-5" />
@@ -96,3 +96,6 @@ export default function RCDashboard() {
     </div>
   );
 }
+
+
+

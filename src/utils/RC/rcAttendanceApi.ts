@@ -1,7 +1,19 @@
-﻿import { axios_api as api } from "@/utils/api";
+import { axios_api as api } from "@/utils/api";
 import { getToken } from "@/utils/auth/authUtil";
-import type { RCStudent } from "@/utils/RC/rcStudentsApi";
-
+export type RCStudent = {
+  rollNo: string;
+  name: string;
+  roomNumber: number | null;
+  course: string;
+  branch: string;
+  semester: string;
+  mobile: string;
+  email: string;
+  emergencycontact?: string;
+  emergencyContact?: string;
+  floor: number | null;
+  hostelBlock: string | null;
+};
 export type AttendancePayload = {
   date: string;
   hostel: string;
@@ -44,3 +56,4 @@ export async function getAttendanceHistory(): Promise<AttendanceRecord[]> {
   });
   return response.data?.data ?? [];
 }
+
