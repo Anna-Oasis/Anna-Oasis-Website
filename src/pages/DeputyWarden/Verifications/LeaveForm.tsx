@@ -6,6 +6,7 @@ import {
   updateDeputyWardenLeaveFormStatus,
 } from "@/utils/deputyWarden/dwLeaveVerificationApi";
 
+
 const normalizeStatus = (status: any) => {
   const s = String(status ?? "").toLowerCase().trim();
   if (s === "approved" || s === "true" || status === true)
@@ -25,9 +26,9 @@ const LeaveFormPage = () => {
   const loadLeaveForms = async () => {
     try {
       const data = await fetchDeputyWardenLeaveForms();
-      setLeaveForms(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error(error);
+      const result = Array.isArray(data) ? data : [];
+      setLeaveForms(result);
+    } catch {
       setLeaveForms([]);
     } finally {
       setLoading(false);
@@ -111,52 +112,28 @@ const LeaveFormPage = () => {
                 {/* Detail fields */}
                 <div className="mt-3 space-y-1 text-sm text-slate-600">
                   {(item.student_name ?? item.name) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Name: </span>
-                      {item.student_name ?? item.name}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Name: </span>{item.student_name ?? item.name}</p>
                   )}
                   {item.from_date && (
-                    <p>
-                      <span className="font-medium text-slate-700">From: </span>
-                      {new Date(item.from_date).toLocaleDateString()}
-                    </p>
+                    <p><span className="font-medium text-slate-700">From: </span>{new Date(item.from_date).toLocaleDateString()}</p>
                   )}
                   {item.to_date && (
-                    <p>
-                      <span className="font-medium text-slate-700">To: </span>
-                      {new Date(item.to_date).toLocaleDateString()}
-                    </p>
+                    <p><span className="font-medium text-slate-700">To: </span>{new Date(item.to_date).toLocaleDateString()}</p>
                   )}
                   {(item.leaving ?? item.leaving_date) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Leaving: </span>
-                      {new Date(item.leaving ?? item.leaving_date).toLocaleDateString()}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Leaving: </span>{new Date(item.leaving ?? item.leaving_date).toLocaleDateString()}</p>
                   )}
                   {(item.arrival ?? item.arrival_date) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Return: </span>
-                      {new Date(item.arrival ?? item.arrival_date).toLocaleDateString()}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Return: </span>{new Date(item.arrival ?? item.arrival_date).toLocaleDateString()}</p>
                   )}
                   {item.reason && (
-                    <p>
-                      <span className="font-medium text-slate-700">Reason: </span>
-                      {item.reason}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Reason: </span>{item.reason}</p>
                   )}
                   {(item.hostelBlock ?? item.hostel_block ?? item.hostel) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Hostel: </span>
-                      {item.hostelBlock ?? item.hostel_block ?? item.hostel}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Hostel: </span>{item.hostelBlock ?? item.hostel_block ?? item.hostel}</p>
                   )}
                   {(item.dw_comment ?? item.comment) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Comment: </span>
-                      {item.dw_comment ?? item.comment}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Comment: </span>{item.dw_comment ?? item.comment}</p>
                   )}
                 </div>
 

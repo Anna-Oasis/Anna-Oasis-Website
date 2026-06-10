@@ -7,6 +7,7 @@ import {
   rejectDWVacatingForm,
 } from "@/utils/deputyWarden/dwVacatingHostelApi";
 
+
 const normalizeStatus = (status: string) => {
   const s = status?.toLowerCase().trim();
   if (s === "approved") return { label: "Approved", cls: "bg-green-100 text-green-700" };
@@ -24,9 +25,9 @@ const VacatingHostelPage = () => {
   const loadForms = async () => {
     try {
       const data = await fetchDWVacatingForms();
-      setForms(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error(error);
+      const result = Array.isArray(data) ? data : [];
+      setForms(result);
+    } catch {
       setForms([]);
     } finally {
       setLoading(false);
@@ -93,80 +94,42 @@ const VacatingHostelPage = () => {
                 key={item.id ?? index}
                 className="rounded-2xl bg-white p-5 shadow-sm"
               >
-                {/* Header row */}
+                {/* Header */}
                 <div className="flex items-start justify-between gap-4">
                   <h3 className="text-base font-bold text-slate-900">
-                    {item.roll_number ??
-                      item.rollNo ??
-                      item.student_roll ??
-                      "Unknown Student"}
+                    {item.roll_number ?? item.rollNo ?? item.student_roll ?? "Unknown Student"}
                   </h3>
-                  <span
-                    className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${cls}`}
-                  >
+                  <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${cls}`}>
                     {label}
                   </span>
                 </div>
 
-                {/* Detail fields — render whatever the API returns */}
+                {/* Detail fields */}
                 <div className="mt-3 space-y-1 text-sm text-slate-600">
                   {(item.student_name ?? item.name) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Name: </span>
-                      {item.student_name ?? item.name}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Name: </span>{item.student_name ?? item.name}</p>
                   )}
                   {item.vacating_date && (
-                    <p>
-                      <span className="font-medium text-slate-700">
-                        Vacating Date:{" "}
-                      </span>
-                      {new Date(item.vacating_date).toLocaleDateString()}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Vacating Date: </span>{new Date(item.vacating_date).toLocaleDateString()}</p>
                   )}
-                  {(item.hostelBlock ??
-                    item.hostel_block ??
-                    item.hostel) && (
-                    <p>
-                      <span className="font-medium text-slate-700">
-                        Hostel:{" "}
-                      </span>
-                      {item.hostelBlock ?? item.hostel_block ?? item.hostel}
-                    </p>
+                  {(item.hostelBlock ?? item.hostel_block ?? item.hostel) && (
+                    <p><span className="font-medium text-slate-700">Hostel: </span>{item.hostelBlock ?? item.hostel_block ?? item.hostel}</p>
                   )}
                   {(item.room_number ?? item.roomNumber) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Room: </span>
-                      {item.room_number ?? item.roomNumber}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Room: </span>{item.room_number ?? item.roomNumber}</p>
                   )}
                   {item.floor !== undefined && item.floor !== null && (
-                    <p>
-                      <span className="font-medium text-slate-700">
-                        Floor:{" "}
-                      </span>
-                      {item.floor}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Floor: </span>{item.floor}</p>
                   )}
                   {item.reason && (
-                    <p>
-                      <span className="font-medium text-slate-700">
-                        Reason:{" "}
-                      </span>
-                      {item.reason}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Reason: </span>{item.reason}</p>
                   )}
                   {(item.dw_comment ?? item.comment) && (
-                    <p>
-                      <span className="font-medium text-slate-700">
-                        Comment:{" "}
-                      </span>
-                      {item.dw_comment ?? item.comment}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Comment: </span>{item.dw_comment ?? item.comment}</p>
                   )}
                 </div>
 
-                {/* Approve / Reject actions — only for pending */}
+                {/* Approve / Reject */}
                 {isPending && !isRejecting && (
                   <div className="mt-4 flex gap-2">
                     <button
@@ -178,10 +141,7 @@ const VacatingHostelPage = () => {
                       Approve
                     </button>
                     <button
-                      onClick={() => {
-                        setRejectingId(item.id ?? index);
-                        setRejectComment("");
-                      }}
+                      onClick={() => { setRejectingId(item.id ?? index); setRejectComment(""); }}
                       disabled={submitting}
                       className="flex items-center gap-1.5 rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700 disabled:opacity-50"
                     >
@@ -191,7 +151,7 @@ const VacatingHostelPage = () => {
                   </div>
                 )}
 
-                {/* Rejection comment flow */}
+                {/* Rejection comment */}
                 {isPending && isRejecting && (
                   <div className="mt-4 space-y-2">
                     <textarea
