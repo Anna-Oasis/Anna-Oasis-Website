@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
+import { Navigate } from "react-router-dom";
 
 
 import Addmission from "./pages/addmission";
@@ -16,7 +17,14 @@ import RCAttendancePage from "./pages/RC/Attendance";
 import RCApplyForLeavePage from "./pages/RC/ApplyForLeave";
 import RoomAllocationPage from "./pages/RC/RoomAllocation/allocation";
 import ApprovePage from "./pages/RC/RoomAllocation/approve/approve";
-import ManagerPaymentVerificationsPage from "./pages/Manager/paymentVerification";
+
+//Manager
+import ManagerDashboard from "./pages/Manager/index.tsx";
+import EWDashboard from "./pages/ExecutiveWarden/ExecutiveWarden.tsx";
+import PaymentVerificationsPage from "./pages/Manager/PaymentVerifications";
+import CautionDepositPage from "./pages/Manager/CautionDeposit";
+import ManagerGrievancesPage from "./pages/Manager/Grievances";
+import ProfileVerificationsPage from "./pages/Manager/ProfileVerifications";
 
 // Deputy Warden
 import DeputyWardenDashboard from "./pages/DeputyWarden";
@@ -310,18 +318,32 @@ function App() {
 />
           {/* ================= MANAGER ROUTES ================= */}
           <Route
-            path="/Manager/PaymentVerfication"
+            path="/Manager"
             element={
               <ProtectedRoute
                 element={
                   <MainLayout>
-                    <ManagerPaymentVerificationsPage />
+                    <Outlet />{" "}
+                    {/* Layout renders the Sidebar + child components safely */}
                   </MainLayout>
                 }
                 roles={["manager"]}
               />
             }
-          />
+          >
+            {/* Index route means hitting "/Manager" loads the ManagerDashboard component immediately! */}
+            <Route index element={<ManagerDashboard />} />
+            <Route
+              path="PaymentVerifications"
+              element={<PaymentVerificationsPage />}
+            />
+            <Route path="CautionDeposit" element={<CautionDepositPage />} />
+            <Route path="Grievances" element={<ManagerGrievancesPage />} />
+            <Route
+              path="ProfileVerifications"
+              element={<ProfileVerificationsPage />}
+            />
+          </Route>
 
           {/* ================= DEPUTY WARDEN ROUTES ================= */}
           <Route
@@ -547,7 +569,8 @@ function App() {
               />
             }
           >
-            <Route index element={<AdmissionSessionPage />} />
+            {/* Index route means hitting "/ExecutiveWarden" loads the EWDashboard component immediately! */}
+            <Route index element={<EWDashboard />} />
             <Route
               path="admission-session"
               element={<AdmissionSessionPage />}
@@ -565,15 +588,11 @@ function App() {
           {/* ================= FALLBACK ROUTES ================= */}
           <Route
             path="/404"
-            element={
-              <EmptyPage title="404" description="page not found" />
-            }
+            element={<EmptyPage title="404" description="page not found" />}
           />
           <Route
             path="*"
-            element={
-              <EmptyPage title="404" description="page not found" />
-            }
+            element={<EmptyPage title="404" description="page not found" />}
           />
         </Routes>
       </BrowserRouter>
