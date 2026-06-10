@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { getRoomsByAcademicYear } from "@/utils/deputyWarden/dwRoomApi";
-import { getAdmissionSessions } from "@/utils/executiveWarden/ewAdmissionSessionApi";
+import { getAdmissionSessions } from "@/utils/deputyWarden/dwAdmissionSessionApi";
 
 type RoomMap = Map<string | number, string[]>;
 type FloorMap = Map<string | number, RoomMap>;
