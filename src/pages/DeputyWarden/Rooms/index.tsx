@@ -1,21 +1,76 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { getRoomsByAcademicYear } from "@/utils/deputyWarden/dwRoomApi";
+import { getAdmissionSessions } from "@/utils/deputyWarden/dwAdmissionSessionApi";
 
-const ACADEMIC_YEARS = [
-  "2022-2023",
-  "2023-2024",
-  "2024-2025",
-  "2025-2026",
-  "2026-2027",
-];
+type RoomMap = Map<string | number, string[]>;
+type FloorMap = Map<string | number, RoomMap>;
+type HostelMap = Map<string, FloorMap>;
+
+function extractStudents(item: any): string[] {
+  if (Array.isArray(item.students)) {
+    return item.students.map((s: any) =>
+      typeof s === "string"
+        ? s
+        : s.rollNo ?? s.roll_number ?? s.rollNumber ?? s.name ?? String(s)
+    );
+  }
+  if (Array.isArray(item.occupants)) {
+    return item.occupants.map((s: any) =>
+      typeof s === "string" ? s : s.rollNo ?? s.roll_number ?? String(s)
+    );
+  }
+  if (Array.isArray(item.residents)) {
+    return item.residents.map((s: any) =>
+      typeof s === "string" ? s : s.rollNo ?? s.roll_number ?? String(s)
+    );
+  }
+  const roll = item.rollNo ?? item.roll_number ?? item.rollNumber;
+  if (roll) return [String(roll)];
+  return [];
+}
+
+function buildHierarchy(raw: any[]): HostelMap {
+  const hostelMap: HostelMap = new Map();
+
+  for (const item of raw) {
+    const hostel =
+      item.hostelBlock ?? item.hostel_block ?? item.hostel ?? "Unknown";
+    const floor =
+      item.floor ?? item.floor_number ?? item.floorNumber ?? item.floor_id ?? 0;
+    const room =
+      item.roomNumber ?? item.room_number ?? item.room ?? "—";
+
+    if (!hostelMap.has(hostel)) hostelMap.set(hostel, new Map());
+    const floorMap = hostelMap.get(hostel)!;
+
+    if (!floorMap.has(floor)) floorMap.set(floor, new Map());
+    const roomMap = floorMap.get(floor)!;
+
+    const existing = roomMap.get(room) ?? [];
+    const students = extractStudents(item);
+    roomMap.set(room, [...existing, ...students]);
+  }
+
+  return hostelMap;
+}
 
 const RoomsPage = () => {
   const [academicYear, setAcademicYear] = useState("");
-  const [rooms, setRooms] = useState<any[]>([]);
+  const [academicYears, setAcademicYears] = useState<string[]>([]);
+  const [hierarchy, setHierarchy] = useState<HostelMap>(new Map());
   const [loading, setLoading] = useState(false);
   const [fetched, setFetched] = useState(false);
+
+  useEffect(() => {
+    getAdmissionSessions()
+      .then((data: any[]) => {
+        const years = [...new Set(data.map((s) => s.academic_year).filter(Boolean))] as string[];
+        setAcademicYears(years);
+      })
+      .catch(() => setAcademicYears([]));
+  }, []);
 
   const handleFetch = async () => {
     if (!academicYear) return;
@@ -23,13 +78,16 @@ const RoomsPage = () => {
     setFetched(true);
     try {
       const data = await getRoomsByAcademicYear(academicYear);
-      setRooms(Array.isArray(data) ? data : []);
+      const raw = Array.isArray(data) ? data : [];
+      setHierarchy(buildHierarchy(raw));
     } catch {
-      setRooms([]);
+      setHierarchy(new Map());
     } finally {
       setLoading(false);
     }
   };
+
+  const hasData = hierarchy.size > 0;
 
   return (
     <div className="min-h-screen bg-white p-4">
@@ -51,7 +109,7 @@ const RoomsPage = () => {
           <option value="" disabled>
             Select option
           </option>
-          {ACADEMIC_YEARS.map((yr) => (
+          {academicYears.map((yr: string) => (
             <option key={yr} value={yr}>
               {yr}
             </option>
@@ -65,35 +123,66 @@ const RoomsPage = () => {
 
       <button
         onClick={handleFetch}
-        className="mb-6 w-full rounded-xl bg-slate-900 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+        disabled={!academicYear}
+        className="mb-6 w-full rounded-xl bg-slate-900 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
       >
         Fetch room data
       </button>
 
       {loading ? (
         <p className="text-center text-sm text-slate-400">Loading...</p>
-      ) : fetched && rooms.length === 0 ? (
-        <p className="text-center text-sm text-slate-400">
-          No room data to display.
-        </p>
-      ) : !fetched ? (
+      ) : !fetched || !hasData ? (
         <p className="text-center text-sm text-slate-400">
           No room data to display.
         </p>
       ) : (
-        <div className="flex flex-col gap-4">
-          {rooms.map((room: any, index: number) => (
-            <div
-              key={room.id || index}
-              className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
-            >
-              <p className="font-semibold text-slate-900">
-                Room {room.roomNumber ?? room.room_number ?? index + 1}
-              </p>
-              <p className="text-sm text-slate-500">
-                {room.hostel ?? room.hostelBlock ?? "—"} · Floor{" "}
-                {room.floor ?? "—"}
-              </p>
+        <div className="flex flex-col gap-6">
+          {Array.from(hierarchy.entries()).map(([hostel, floorMap]) => (
+            <div key={String(hostel)}>
+              <h3 className="mb-3 text-base font-bold text-slate-900">
+                {String(hostel)} Hostel
+              </h3>
+
+              <div className="flex flex-col gap-4">
+                {Array.from(floorMap.entries()).map(([floor, roomMap]) => (
+                  <div
+                    key={String(floor)}
+                    className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+                  >
+                    <p className="mb-3 text-sm font-semibold text-slate-700">
+                      Floor {floor}
+                    </p>
+
+                    <div className="flex flex-col gap-3">
+                      {Array.from(roomMap.entries()).map(
+                        ([room, students]) => (
+                          <div key={String(room)}>
+                            <p className="text-sm font-medium text-slate-800">
+                              Room {room}
+                            </p>
+                            {students.length > 0 ? (
+                              <ul className="mt-1 space-y-0.5">
+                                {students.map((s, i) => (
+                                  <li
+                                    key={i}
+                                    className="text-sm text-slate-500"
+                                  >
+                                    - {s}
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p className="mt-1 text-sm text-slate-400">
+                                No students assigned
+                              </p>
+                            )}
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>

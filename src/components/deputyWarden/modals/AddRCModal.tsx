@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { X, Eye, EyeOff } from "lucide-react";
 
+const HOSTELS = ["Flora", "Lavender"];
+
 const FLOORS = [
   { label: "Ground Floor", value: 0, short: "GF" },
   { label: "First Floor", value: 1, short: "FF" },
@@ -127,12 +129,16 @@ const AddRCModal = ({ open, onClose, onSubmit }: AddRCModalProps) => {
             <label className="mb-1.5 block text-sm font-medium text-slate-700">
               Hostel
             </label>
-            <input
+            <select
               value={hostel}
               onChange={(e) => setHostel(e.target.value)}
-              placeholder="e.g. Anna Block A"
               className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#022B60] focus:ring-1 focus:ring-[#022B60]/20"
-            />
+            >
+              <option value="" disabled>Select hostel</option>
+              {HOSTELS.map((h) => (
+                <option key={h} value={h}>{h}</option>
+              ))}
+            </select>
           </div>
 
           {/* Floors */}
