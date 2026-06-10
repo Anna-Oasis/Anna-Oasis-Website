@@ -43,7 +43,7 @@ type VacationRecord = {
 const getStatusInfo = (status: string | number) => {
   const value = Number(status);
 
-  if (value >= 4) {
+  if (value >= 3) {
     return {
       label: "Approved",
       badge: "bg-green-100 text-green-700 border-green-200",
@@ -89,7 +89,7 @@ export default function HostelVacationHistory() {
       setStats({
         total: data.length,
 
-        approved: data.filter((item) => Number(item.vacating.status) >= 4)
+        approved: data.filter((item) => Number(item.vacating.status) >= 3)
           .length,
 
         rejected: data.filter((item) => Number(item.vacating.status) === -1)
@@ -97,7 +97,7 @@ export default function HostelVacationHistory() {
 
         pending: data.filter(
           (item) =>
-            Number(item.vacating.status) < 4 &&
+            Number(item.vacating.status) < 3 &&
             Number(item.vacating.status) !== -1,
         ).length,
       });
