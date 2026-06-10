@@ -6,6 +6,7 @@ import {
   updateVacationStatusByDw,
 } from "@/utils/deputyWarden/dwSummerVacationApi";
 
+
 const normalizeStatus = (status: any) => {
   const s = String(status ?? "").toLowerCase().trim();
   if (s === "approved" || s === "true" || status === true)
@@ -25,9 +26,9 @@ const SummerVacationPage = () => {
   const loadVacations = async () => {
     try {
       const data = await getStudentVacationsByDw();
-      setVacations(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error(error);
+      const result = Array.isArray(data) ? data : [];
+      setVacations(result);
+    } catch {
       setVacations([]);
     } finally {
       setLoading(false);
@@ -111,40 +112,22 @@ const SummerVacationPage = () => {
                 {/* Detail fields */}
                 <div className="mt-3 space-y-1 text-sm text-slate-600">
                   {(item.student_name ?? item.name) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Name: </span>
-                      {item.student_name ?? item.name}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Name: </span>{item.student_name ?? item.name}</p>
                   )}
                   {(item.leaving_date ?? item.leaving) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Leaving: </span>
-                      {new Date(item.leaving_date ?? item.leaving).toLocaleDateString()}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Leaving: </span>{new Date(item.leaving_date ?? item.leaving).toLocaleDateString()}</p>
                   )}
                   {(item.arrival_date ?? item.arrival) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Return: </span>
-                      {new Date(item.arrival_date ?? item.arrival).toLocaleDateString()}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Return: </span>{new Date(item.arrival_date ?? item.arrival).toLocaleDateString()}</p>
                   )}
                   {item.reason && (
-                    <p>
-                      <span className="font-medium text-slate-700">Reason: </span>
-                      {item.reason}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Reason: </span>{item.reason}</p>
                   )}
                   {(item.hostelBlock ?? item.hostel_block ?? item.hostel) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Hostel: </span>
-                      {item.hostelBlock ?? item.hostel_block ?? item.hostel}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Hostel: </span>{item.hostelBlock ?? item.hostel_block ?? item.hostel}</p>
                   )}
                   {(item.dw_comment ?? item.comment) && (
-                    <p>
-                      <span className="font-medium text-slate-700">Comment: </span>
-                      {item.dw_comment ?? item.comment}
-                    </p>
+                    <p><span className="font-medium text-slate-700">Comment: </span>{item.dw_comment ?? item.comment}</p>
                   )}
                 </div>
 
