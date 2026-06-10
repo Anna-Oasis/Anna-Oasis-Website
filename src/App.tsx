@@ -61,12 +61,18 @@ import SIgnup from "./pages/auth/SIgnup";
 import AdmissionForm from "./pages/Student/admission";
 import DetailsPage from "./pages/Student/details";
 import DetailsEditPage from "./pages/Student/detailsedit";
+import GrievancesPage from "./pages/Student/Grievances";
+import HostelVacationPage from "./pages/Student/HostelVacation";
 
 import DeleteAccountPage from "@/pages/DeleteAccount";
 import EmptyPage from "./components/EmptyPage";
 import MainLayout from "./components/MainLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Landing from "./pages/landing";
+
+import StudentLeaveFormPage from "./pages/Student/leaveform";
+import StudentSummerVacationPage from "./pages/Student/summerVacation";
+import StudentDashboard from "./pages/Student/Dashboard";
 
 function App() {
   return (
@@ -79,6 +85,19 @@ function App() {
           <Route path="/DeleteAccount" element={<DeleteAccountPage />} />
 
           {/* ================= STUDENT ROUTES ================= */}
+          <Route
+            path="/User/Student"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <StudentDashboard />
+                  </MainLayout>
+                }
+                roles={["student"]}
+              />
+            }
+          />
           <Route
             path="/admissionForm"
             element={
@@ -125,6 +144,61 @@ function App() {
                 element={
                   <MainLayout>
                     <DetailsEditPage />
+                  </MainLayout>
+                }
+                roles={["student"]}
+              />
+            }
+          />
+          <Route
+            path="/User/Student/leave"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <StudentLeaveFormPage />
+                  </MainLayout>
+                }
+                roles={["student"]}
+              />
+            }
+          />
+
+          <Route
+            path="/User/Student/summer-vacation"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <StudentSummerVacationPage />
+                  </MainLayout>
+                }
+                roles={["student"]}
+              />
+            }
+          />
+
+          <Route
+            path="/User/Student/Grievances"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <GrievancesPage />
+                  </MainLayout>
+                }
+                roles={["student"]}
+              />
+            }
+          />
+
+          <Route
+            path="/User/Student/HostelVacation"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <HostelVacationPage />
                   </MainLayout>
                 }
                 roles={["student"]}

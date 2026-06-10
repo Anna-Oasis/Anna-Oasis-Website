@@ -20,8 +20,25 @@ import LogoutModal from "@/components/LogoutModal";
 import useUserStore from "@/stores/userStore";
 
 const studentLinks = [
+  {
+  label: "Dashboard",
+  path: "/User/Student",
+},
   { label: "Admission", path: "/User/Student/admission" },
   { label: "Details", path: "/User/Student/details" },
+  { label: "Leave", path: "/User/Student/leave" },
+  {
+    label: "Summer Vacation",
+    path: "/User/Student/summer-vacation",
+  },
+  {
+    label: "Hostel Vacation",
+    path: "/User/Student/HostelVacation",
+  },
+  {
+    label: "Grievances",
+    path: "/User/Student/Grievances",
+  },
 ];
 
 const managerLinks = [
