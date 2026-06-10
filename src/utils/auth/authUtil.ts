@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { User } from "@/store/userStore";
 import {axios_api as api} from "@/utils/api";
 import { toast } from "sonner";
@@ -75,7 +76,7 @@ export const handleLogin = async (
     toast(`Login Failed \n ${error.response?.data?.message || error.message}`);
   }
 };
-
+  
 
  /**
  * 

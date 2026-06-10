@@ -46,10 +46,10 @@ const LoginCard = () => {
                   case "rc":
                     navigate("/RC");
                     break;
-                  case "DeputyWarden":
+                  case "deputyWarden":
                     navigate("/DeputyWarden");
                     break;
-                  case "ExecutiveWarden":
+                  case "executiveWarden":
                     navigate("/ExecutiveWarden");
                     break;
                   default:
