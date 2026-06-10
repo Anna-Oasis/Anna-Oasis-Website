@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { getRoomsByAcademicYear } from "@/utils/deputyWarden/dwRoomApi";
-
-const ACADEMIC_YEARS = [ "2026-2027","2027-2028"];
+import { getAdmissionSessions } from "@/utils/executiveWarden/ewAdmissionSessionApi";
 
 type RoomMap = Map<string | number, string[]>;
 type FloorMap = Map<string | number, RoomMap>;
@@ -59,9 +58,19 @@ function buildHierarchy(raw: any[]): HostelMap {
 
 const RoomsPage = () => {
   const [academicYear, setAcademicYear] = useState("");
+  const [academicYears, setAcademicYears] = useState<string[]>([]);
   const [hierarchy, setHierarchy] = useState<HostelMap>(new Map());
   const [loading, setLoading] = useState(false);
   const [fetched, setFetched] = useState(false);
+
+  useEffect(() => {
+    getAdmissionSessions()
+      .then((data: any[]) => {
+        const years = [...new Set(data.map((s) => s.academic_year).filter(Boolean))] as string[];
+        setAcademicYears(years);
+      })
+      .catch(() => setAcademicYears([]));
+  }, []);
 
   const handleFetch = async () => {
     if (!academicYear) return;
@@ -100,7 +109,7 @@ const RoomsPage = () => {
           <option value="" disabled>
             Select option
           </option>
-          {ACADEMIC_YEARS.map((yr) => (
+          {academicYears.map((yr: string) => (
             <option key={yr} value={yr}>
               {yr}
             </option>
