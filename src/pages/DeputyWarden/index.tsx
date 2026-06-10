@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router";
 import {
-  ClipboardCheck,
-  ShieldCheck,
-  TriangleAlert,
+  FilePlus,
+  ClipboardList,
+  FileText,
   Users,
-  CalendarCheck,
+  BarChart2,
   FileClock,
   BedDouble,
 } from "lucide-react";
@@ -16,17 +16,17 @@ const DeputyWardenDashboard = () => {
   const modules = [
     {
       title: "Admission Verification",
-      icon: <ClipboardCheck size={32} />,
+      icon: <FilePlus size={32} />,
       route: "/DeputyWarden/AdmissionVerification",
     },
     {
       title: "Verifications",
-      icon: <ShieldCheck size={32} />,
+      icon: <ClipboardList size={32} />,
       route: "/DeputyWarden/Verifications",
     },
     {
       title: "Grievances",
-      icon: <TriangleAlert size={32} />,
+      icon: <FileText size={32} />,
       route: "/DeputyWarden/Grievances",
     },
     {
@@ -36,7 +36,7 @@ const DeputyWardenDashboard = () => {
     },
     {
       title: "Attendance Reports",
-      icon: <CalendarCheck size={32} />,
+      icon: <BarChart2 size={32} />,
       route: "/DeputyWarden/AttendanceReports",
     },
     {
@@ -51,72 +51,20 @@ const DeputyWardenDashboard = () => {
     },
   ];
 
-return (
-  <div className="min-h-screen bg-slate-50 p-6">
-    <div className="mb-8">
-      <h1 className="text-4xl font-bold text-[#022B60]">
-        Deputy Warden Dashboard
-      </h1>
-
-      <p className="mt-2 text-slate-500">
-        Hostel administration and verification portal
-      </p>
-    </div>
-
-    <div className="mb-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-      <div className="rounded-2xl bg-white p-5 shadow-sm">
-        <p className="text-sm text-slate-500">
-          Admissions
-        </p>
-
-        <h2 className="mt-2 text-3xl font-bold text-[#022B60]">
-          0
-        </h2>
-      </div>
-
-      <div className="rounded-2xl bg-white p-5 shadow-sm">
-        <p className="text-sm text-slate-500">
-          Grievances
-        </p>
-
-        <h2 className="mt-2 text-3xl font-bold text-[#022B60]">
-          0
-        </h2>
-      </div>
-
-      <div className="rounded-2xl bg-white p-5 shadow-sm">
-        <p className="text-sm text-slate-500">
-          RCs
-        </p>
-
-        <h2 className="mt-2 text-3xl font-bold text-[#022B60]">
-          0
-        </h2>
-      </div>
-
-      <div className="rounded-2xl bg-white p-5 shadow-sm">
-        <p className="text-sm text-slate-500">
-          Rooms
-        </p>
-
-        <h2 className="mt-2 text-3xl font-bold text-[#022B60]">
-          0
-        </h2>
+  return (
+    <div className="min-h-screen bg-white p-4">
+      <div className="grid grid-cols-2 gap-4">
+        {modules.map((module) => (
+          <DashboardCard
+            key={module.title}
+            title={module.title}
+            icon={module.icon}
+            onClick={() => navigate(module.route)}
+          />
+        ))}
       </div>
     </div>
-
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-      {modules.map((module) => (
-        <DashboardCard
-          key={module.title}
-          title={module.title}
-          icon={module.icon}
-          onClick={() => navigate(module.route)}
-        />
-      ))}
-    </div>
-  </div>
-);
+  );
 };
 
 export default DeputyWardenDashboard;

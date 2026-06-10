@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { ArrowRight } from "lucide-react";
 
 interface DashboardCardProps {
   title: string;
@@ -7,30 +6,14 @@ interface DashboardCardProps {
   onClick: () => void;
 }
 
-const DashboardCard = ({
-  title,
-  icon,
-  onClick,
-}: DashboardCardProps) => {
+const DashboardCard = ({ title, icon, onClick }: DashboardCardProps) => {
   return (
     <button
       onClick={onClick}
-      className="group flex h-40 w-full flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+      className="flex h-44 w-full flex-col items-center justify-center gap-4 rounded-2xl bg-[#022B60] p-6 text-center text-white transition-all duration-200 hover:brightness-110 active:scale-95"
     >
-      <div className="flex items-center justify-between">
-        <div className="text-[#022B60]">
-          {icon}
-        </div>
-
-        <ArrowRight
-          size={18}
-          className="text-slate-400 transition group-hover:translate-x-1"
-        />
-      </div>
-
-      <h3 className="text-lg font-semibold text-slate-800">
-        {title}
-      </h3>
+      <div className="text-white">{icon}</div>
+      <h3 className="text-base font-semibold leading-tight text-white">{title}</h3>
     </button>
   );
 };

@@ -32,7 +32,19 @@ const managerLinks = [
   { label: "Profile Verification", path: "/Manager/ProfileVerifications" },
 ];
 
-const rcLinks = [{ label: "Room Allocation", path: "/RC/RoomAllocation" }];
+const rcLinks = [
+  { label: "Dashboard", path: "/RC" },
+  { label: "Room Allocation", path: "/RC/RoomAllocation" },
+  { label: "Room List", path: "/RC/Rooms" },
+  { label: "Students", path: "/RC/Students" },
+  { label: "Leave Forms", path: "/RC/StudentVerification/LeaveForm" },
+  { label: "Grievances", path: "/RC/StudentVerification/Grievances" },
+  { label: "Summer Vacation", path: "/RC/StudentVerification/SummerVacation" },
+  { label: "Vacating Hostel", path: "/RC/StudentVerification/VacatingHostel" },
+  { label: "Attendance", path: "/RC/Attendance" },
+  { label: "RC Leave", path: "/RC/ApplyForLeave" },
+  { label: "Details", path: "/RC/Details" },
+];
 
 const deputyWardenLinks = [
   { label: "Dashboard", path: "/DeputyWarden" },
@@ -174,7 +186,7 @@ export default function RoleBasedSidebar() {
         </SidebarContent>
       </Sidebar>
 
-      <LogoutModal
+<LogoutModal
         open={logoutOpen}
         onClose={() => setLogoutOpen(false)}
         onConfirm={handleLogout}
