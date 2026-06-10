@@ -14,22 +14,39 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import {
-  getToken,
-  verifyToken,
-  removeToken,
-} from "@/utils/auth/authUtil";
+import { getToken, verifyToken, removeToken } from "@/utils/auth/authUtil";
 
 import LogoutModal from "@/components/LogoutModal";
 import useUserStore from "@/stores/userStore";
 
 const studentLinks = [
+  {
+  label: "Dashboard",
+  path: "/User/Student",
+},
   { label: "Admission", path: "/User/Student/admission" },
   { label: "Details", path: "/User/Student/details" },
+  { label: "Leave", path: "/User/Student/leave" },
+  {
+    label: "Summer Vacation",
+    path: "/User/Student/summer-vacation",
+  },
+  {
+    label: "Hostel Vacation",
+    path: "/User/Student/HostelVacation",
+  },
+  {
+    label: "Grievances",
+    path: "/User/Student/Grievances",
+  },
 ];
 
 const managerLinks = [
-  { label: "Payment Verification", path: "/Manager/PaymentVerfication" },
+  { label: "Dashboard", path: "/Manager" },
+  { label: "Payment Verification", path: "/Manager/PaymentVerifications" },
+  { label: "Caution Deposit", path: "/Manager/CautionDeposit" },
+  { label: "Grievances", path: "/Manager/Grievances" },
+  { label: "Profile Verification", path: "/Manager/ProfileVerifications" },
 ];
 
 const rcLinks = [
@@ -57,6 +74,7 @@ const deputyWardenLinks = [
 ];
 
 const executiveWardenLinks = [
+  { label: "Dashboard", path: "/ExecutiveWarden" },
   { label: "Admission Session", path: "/ExecutiveWarden/admission-session" },
   {
     label: "Admission Verification",
