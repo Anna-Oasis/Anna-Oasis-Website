@@ -64,6 +64,7 @@ import Landing from "./pages/landing";
 
 import StudentLeaveFormPage from "./pages/Student/leaveform";
 import StudentSummerVacationPage from "./pages/Student/summerVacation";
+import StudentDashboard from "./pages/Student/Dashboard";
 
 function App() {
   return (
@@ -76,6 +77,19 @@ function App() {
           <Route path="/DeleteAccount" element={<DeleteAccountPage />} />
 
           {/* ================= STUDENT ROUTES ================= */}
+          <Route
+            path="/User/Student"
+            element={
+              <ProtectedRoute
+                element={
+                  <MainLayout>
+                    <StudentDashboard />
+                  </MainLayout>
+                }
+                roles={["student"]}
+              />
+            }
+          />
           <Route
             path="/admissionForm"
             element={
