@@ -16,12 +16,25 @@ import { getHistoryOfGrievance } from "@/utils/student/studentGrievanceApi";
 
 type Grievance = {
   id: number;
+  roll_number: string;
   grievance_type: string;
   subject: string;
   description: string;
   status: string | number;
   created_at: string;
+  rc_approval_at?: string | null;
+  rc_decision_at?: string | null;
   resolved_at: string | null;
+};
+
+const formatIST = (date?: string | null) => {
+  if (!date) return "N/A";
+
+  return new Date(date).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
 };
 
 const getStatusInfo = (status: string | number) => {
@@ -32,6 +45,12 @@ const getStatusInfo = (status: string | number) => {
         badge: "bg-green-100 text-green-700 border-green-200",
       };
 
+    case 1:
+      return {
+        label: "RC Approved",
+        badge: "bg-blue-100 text-blue-700 border-blue-200",
+      };
+
     case -1:
       return {
         label: "Rejected",
@@ -40,8 +59,8 @@ const getStatusInfo = (status: string | number) => {
 
     default:
       return {
-        label: "Pending Approval",
-        badge: "bg-amber-100 text-amber-700 border border-amber-300 px-3 py-1",
+        label: "Pending RC Approval",
+        badge: "bg-amber-100 text-amber-700 border-amber-300",
       };
   }
 };
@@ -206,7 +225,7 @@ export default function GrievanceHistory() {
                       <p className="text-xs text-slate-400">Submitted On</p>
 
                       <p className="font-medium text-slate-700">
-                        {new Date(item.created_at).toLocaleDateString("en-IN")}
+                        {formatIST(item.created_at)}
                       </p>
                     </div>
 
@@ -223,61 +242,82 @@ export default function GrievanceHistory() {
 
       {/* Dialog */}
       <Dialog open={!!selected} onOpenChange={() => setSelected(null)}>
-        <DialogContent className="max-w-3xl">
+        <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle className="text-2xl text-[#0F2F6E]">
-              {selected?.subject}
+              Grievance Details
             </DialogTitle>
 
             <DialogDescription>
-              Complete grievance information
+              Complete grievance information and approval status
             </DialogDescription>
           </DialogHeader>
 
           {selected && (
-            <div className="grid gap-6 mt-4">
-              <div>
-                <p className="text-sm text-slate-500">Category</p>
+            <div className="space-y-6 mt-4">
+              {/* Header */}
+              <div className="rounded-xl border bg-slate-50 p-5">
+                <h3 className="text-xl font-semibold text-[#0F2F6E]">
+                  {selected.subject}
+                </h3>
 
-                <p className="font-semibold">{selected.grievance_type}</p>
+                <p className="text-slate-500 mt-1">{selected.grievance_type}</p>
               </div>
 
-              <div>
-                <p className="text-sm text-slate-500">Description</p>
+              {/* Main Details */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-sm text-slate-500">Roll Number</p>
 
-                <div className="mt-2 rounded-lg bg-slate-50 p-4 border">
-                  {selected.description}
+                  <p className="font-medium mt-1">{selected.roll_number}</p>
                 </div>
-              </div>
 
-              <div>
-                <p className="text-sm text-slate-500">Status</p>
+                <div>
+                  <p className="text-sm text-slate-500">Status</p>
 
-                <div className="mt-2">
-                  <Badge className={getStatusInfo(selected.status).badge}>
-                    {getStatusInfo(selected.status).label}
-                  </Badge>
+                  <div className="mt-2">
+                    <Badge className={getStatusInfo(selected.status).badge}>
+                      {getStatusInfo(selected.status).label}
+                    </Badge>
+                  </div>
                 </div>
-              </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-slate-500">Submitted On</p>
 
-                  <p className="font-medium">
-                    {new Date(selected.created_at).toLocaleString("en-IN")}
+                  <p className="font-medium mt-1">
+                    {formatIST(selected.created_at)}
                   </p>
                 </div>
 
-                {selected.resolved_at && (
-                  <div>
-                    <p className="text-sm text-slate-500">Resolved On</p>
+                <div>
+                  <p className="text-sm text-slate-500">RC Approval Time</p>
 
-                    <p className="font-medium">
-                      {new Date(selected.resolved_at).toLocaleString("en-IN")}
-                    </p>
-                  </div>
-                )}
+                  <p className="font-medium mt-1">
+                    {formatIST(
+                      selected.rc_approval_at || selected.rc_decision_at,
+                    )}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-slate-500">Resolved On</p>
+
+                  <p className="font-medium mt-1">
+                    {selected.resolved_at
+                      ? formatIST(selected.resolved_at)
+                      : "Not Resolved"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div>
+                <p className="text-sm text-slate-500 mb-2">Description</p>
+
+                <div className="rounded-xl border bg-slate-50 p-4 leading-7">
+                  {selected.description}
+                </div>
               </div>
             </div>
           )}
